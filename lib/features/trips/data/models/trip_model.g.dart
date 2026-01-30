@@ -1,6 +1,10 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'trip_model.dart';
 
+// **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
 
 class TripModelAdapter extends TypeAdapter<TripModel> {
   @override
@@ -63,6 +67,9 @@ class TripModelAdapter extends TypeAdapter<TripModel> {
           typeId == other.typeId;
 }
 
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
 
 TripModel _$TripModelFromJson(Map<String, dynamic> json) => TripModel(
       id: json['id'] as String,

@@ -10,7 +10,7 @@ Future<void> setupServiceLocator() async {
   final Box<TripModel> tripsBox = await Hive.openBox<TripModel>('trips');
   final tripRepository = TripRepositoryImpl(tripsBox: tripsBox);
   await tripRepository.initialize();
-  
+
   serviceLocator.registerSingleton<TripRepository>(tripRepository);
 }
 

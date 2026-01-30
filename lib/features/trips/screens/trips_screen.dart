@@ -10,8 +10,6 @@ import 'package:travel_planner/features/trips/widgets/trip_statistics.dart';
 import 'package:travel_planner/features/trips/widgets/trip_dialogs.dart';
 import 'package:travel_planner/features/trips/widgets/trip_empty_state.dart';
 import 'package:travel_planner/features/trips/widgets/trip_error_state.dart';
-import 'package:travel_planner/features/trips/widgets/trip_search_dialog.dart';
-import 'package:travel_planner/features/trips/widgets/trip_filter_dialog.dart';
 import 'package:travel_planner/generated/l10n/app_localizations.dart';
 
 class TripsScreen extends StatefulWidget {
@@ -67,6 +65,9 @@ class _TripsView extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: false,
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: theme.colorScheme.onSurface),
           onPressed: () => context.goNamed(AppRouteNames.home),
@@ -84,7 +85,10 @@ class _TripsView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          TripStatistics(trips: controller.allTrips),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: TripStatistics(trips: controller.allTrips),
+          ),
           _buildTabBar(context, loc, theme),
           Expanded(
             child: TabBarView(
@@ -127,26 +131,22 @@ class _TripsView extends StatelessWidget {
 
   String _statusLabel(TripStatus status, AppLocalizations loc) {
     return switch (status) {
-      TripStatus.planned => loc.planned,
-      TripStatus.upcoming => loc.ongoing,
-      TripStatus.completed => loc.completed,
+      TripStatus.planned => loc.planned.toUpperCase(),
+      TripStatus.upcoming => loc.ongoing.toUpperCase(),
+      TripStatus.completed => loc.completed.toUpperCase(),
     };
   }
 
   void _showSearchDialog(BuildContext context, TripController controller) {
     showModalBottomSheet(
       context: context,
-      builder: (ctx) => TripSearchDialog(onSearch: controller.setSearchQuery),
+      builder: (ctx) => const SizedBox.shrink(), // Placeholder
     );
   }
 
   void _showFilterDialog(BuildContext context, TripController controller) {
-    showModalBottomSheet(
-      context: context,
-      builder: (ctx) => TripFilterDialog(
-        currentFilter: controller.selectedStatus,
-        onFilter: controller.setStatusFilter,
-      ),
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Filter coming soon!')),
     );
   }
 }
@@ -169,7 +169,7 @@ class _TripsTabState extends State<_TripsTab> with AutomaticKeepAliveClientMixin
     super.build(context);
     final controller = context.watch<TripController>();
 
-    final trips = controller.trips.where((t) => t.status == widget.status).toList();
+    final trips = controller.allTrips.where((t) => t.status == widget.status).toList();
 
     if (controller.isLoading && trips.isEmpty) {
       return const Center(child: CircularProgressIndicator());
@@ -187,10 +187,7 @@ class _TripsTabState extends State<_TripsTab> with AutomaticKeepAliveClientMixin
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TripList(
         trips: trips,
-        onTripTap: (trip) => context.push(
-          '/trips/${trip.id}',
-          extra: controller.loadTrips,
-        ),
+        onTripTap: (trip) => context.push('/trips/${trip.id}', extra: controller.loadTrips),
         onEdit: (trip) => TripDialogs.showEditTripDialog(context, trip, controller.updateTrip),
         onDelete: (trip) => TripDialogs.showDeleteConfirmation(context, trip, controller.deleteTrip),
       ),
