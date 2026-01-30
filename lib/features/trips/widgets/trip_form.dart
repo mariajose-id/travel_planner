@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:travel_planner/features/trips/models/trip.dart';
+import 'package:travel_planner/features/trips/domain/entities/trip.dart';
 import 'package:travel_planner/shared/widgets/app_button.dart';
 import 'package:travel_planner/shared/widgets/text_field.dart';
 import 'package:travel_planner/generated/l10n/app_localizations.dart';
-import 'package:travel_planner/core/theme/app_typography.dart';
 import 'package:travel_planner/core/utils/app_date_utils.dart';
-import 'package:travel_planner/core/utils/string_utils.dart';
 import 'package:travel_planner/core/error/error_handler.dart';
+
 class TripForm extends StatefulWidget {
   final Trip? trip;
   final Function(Map<String, dynamic>) onSave;
+
   const TripForm({
     super.key,
     this.trip,
     required this.onSave,
   });
+
   @override
   State<TripForm> createState() => _TripFormState();
 }
+
 class _TripFormState extends State<TripForm> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
@@ -26,8 +28,9 @@ class _TripFormState extends State<TripForm> {
   final _budgetController = TextEditingController();
   DateTime? _startDate;
   DateTime? _endDate;
-  String _status = 'planned';
+  TripStatus _status = TripStatus.planned;
   bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +44,7 @@ class _TripFormState extends State<TripForm> {
       _status = widget.trip!.status;
     }
   }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -49,10 +53,12 @@ class _TripFormState extends State<TripForm> {
     _budgetController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+    final loc = AppLocalizations.of(context);
+
     return Dialog(
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
@@ -69,9 +75,9 @@ class _TripFormState extends State<TripForm> {
               children: [
                 Text(
                   widget.trip == null 
-                      ? AppLocalizations.of(context).addNewTrip 
-                      : AppLocalizations.of(context).editTrip,
-                  style: context.headlineMedium.copyWith(
+                      ? loc.addNewTrip 
+                      : loc.editTrip,
+                  style: theme.textTheme.headlineMedium?.copyWith(
                     color: theme.colorScheme.onSurface,
                     fontWeight: FontWeight.w600,
                   ),
@@ -80,11 +86,11 @@ class _TripFormState extends State<TripForm> {
                 
                 AppTextField(
                   controller: _titleController,
-                  label: AppLocalizations.of(context).tripTitle,
-                  hint: AppLocalizations.of(context).enterTripTitle,
+                  label: loc.tripTitle,
+                  hint: loc.enterTripTitle,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context).pleaseEnterTripTitle;
+                      return loc.pleaseEnterTripTitle;
                     }
                     return null;
                   },
@@ -94,12 +100,12 @@ class _TripFormState extends State<TripForm> {
                 
                 AppTextField(
                   controller: _descriptionController,
-                  label: AppLocalizations.of(context).description,
-                  hint: AppLocalizations.of(context).enterTripDescription,
+                  label: loc.description,
+                  hint: loc.enterTripDescription,
                   maxLines: 3,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context).pleaseEnterDescription;
+                      return loc.pleaseEnterDescription;
                     }
                     return null;
                   },
@@ -109,11 +115,11 @@ class _TripFormState extends State<TripForm> {
                 
                 AppTextField(
                   controller: _destinationController,
-                  label: AppLocalizations.of(context).destination,
-                  hint: AppLocalizations.of(context).enterDestination,
+                  label: loc.destination,
+                  hint: loc.enterDestination,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context).pleaseEnterDestination;
+                      return loc.pleaseEnterDestination;
                     }
                     return null;
                   },
@@ -133,11 +139,11 @@ class _TripFormState extends State<TripForm> {
                                   ? AppDateUtils.formatFormFieldDate(_startDate!)
                                   : '',
                             ),
-                            label: AppLocalizations.of(context).startDate,
-                            hint: AppLocalizations.of(context).selectStartDate,
+                            label: loc.startDate,
+                            hint: loc.selectStartDate,
                             validator: (value) {
                               if (_startDate == null) {
-                                return AppLocalizations.of(context).pleaseSelectStartDate;
+                                return loc.pleaseSelectStartDate;
                               }
                               return null;
                             },
@@ -156,11 +162,11 @@ class _TripFormState extends State<TripForm> {
                                   ? AppDateUtils.formatFormFieldDate(_endDate!)
                                   : '',
                             ),
-                            label: AppLocalizations.of(context).endDate,
-                            hint: AppLocalizations.of(context).selectEndDate,
+                            label: loc.endDate,
+                            hint: loc.selectEndDate,
                             validator: (value) {
                               if (_endDate == null) {
-                                return AppLocalizations.of(context).pleaseSelectEndDate;
+                                return loc.pleaseSelectEndDate;
                               }
                               return null;
                             },
@@ -175,15 +181,15 @@ class _TripFormState extends State<TripForm> {
                 
                 AppTextField(
                   controller: _budgetController,
-                  label: AppLocalizations.of(context).budget,
-                  hint: AppLocalizations.of(context).enterBudget,
+                  label: loc.budget,
+                  hint: loc.enterBudget,
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return AppLocalizations.of(context).pleaseEnterBudget;
+                      return loc.pleaseEnterBudget;
                     }
                     if (double.tryParse(value) == null) {
-                      return AppLocalizations.of(context).pleaseEnterValidNumber;
+                      return loc.pleaseEnterValidNumber;
                     }
                     return null;
                   },
@@ -191,20 +197,20 @@ class _TripFormState extends State<TripForm> {
                 
                 const SizedBox(height: 24),
                 
-                DropdownButtonFormField<String>(
+                DropdownButtonFormField<TripStatus>(
                   initialValue: _status,
                   decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).status,
+                    labelText: loc.status,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     filled: true,
                     fillColor: theme.colorScheme.surface,
                   ),
-                  items: ['planned', 'ongoing', 'completed', 'cancelled'].map((status) {
+                  items: TripStatus.values.map((status) {
                     return DropdownMenuItem(
                       value: status,
-                      child: Text(StringUtils.capitalize(status)),
+                      child: Text(_statusLabel(status, loc)),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -220,7 +226,7 @@ class _TripFormState extends State<TripForm> {
                   children: [
                     Expanded(
                       child: AppButton(
-                        text: AppLocalizations.of(context).cancel,
+                        text: loc.cancel,
                         variant: AppButtonVariant.outline,
                         onPressed: () => Navigator.of(context).pop(),
                       ),
@@ -229,8 +235,8 @@ class _TripFormState extends State<TripForm> {
                     Expanded(
                       child: AppButton(
                         text: widget.trip == null 
-                            ? AppLocalizations.of(context).addTrip 
-                            : AppLocalizations.of(context).updateTrip,
+                            ? loc.addTrip 
+                            : loc.updateTrip,
                         isLoading: _isLoading,
                         onPressed: _saveTrip,
                       ),
@@ -244,6 +250,15 @@ class _TripFormState extends State<TripForm> {
       ),
     );
   }
+
+  String _statusLabel(TripStatus status, AppLocalizations loc) {
+    return switch (status) {
+      TripStatus.planned => loc.planned,
+      TripStatus.upcoming => loc.ongoing,
+      TripStatus.completed => loc.completed,
+    };
+  }
+
   Future<void> _selectDate(BuildContext context, {required bool isStartDate}) async {
     final picked = await showDatePicker(
       context: context,
@@ -268,6 +283,7 @@ class _TripFormState extends State<TripForm> {
       });
     }
   }
+
   Future<void> _saveTrip() async {
     if (!_formKey.currentState!.validate()) {
       return;

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:travel_planner/features/trips/models/trip.dart';
+import 'package:travel_planner/features/trips/domain/entities/trip.dart';
 import 'package:travel_planner/shared/widgets/section_card.dart';
-import 'package:travel_planner/core/theme/app_typography.dart';
-import 'package:travel_planner/core/theme/app_spacing.dart';
+import 'package:travel_planner/generated/l10n/app_localizations.dart';
 
 class TripStatistics extends StatelessWidget {
   final List<Trip> trips;
@@ -14,67 +13,58 @@ class TripStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final loc = AppLocalizations.of(context);
     final totalBudget = trips.fold(0.0, (sum, trip) => sum + trip.budget);
-    final upcomingTrips = trips.where((trip) => 
-      trip.status.toLowerCase() == 'planned' || trip.status.toLowerCase() == 'ongoing'
-    ).length;
-    final completedTrips = trips.where((trip) => 
-      trip.status.toLowerCase() == 'completed'
-    ).length;
+    final upcomingTrips = trips.where((trip) => trip.status == TripStatus.upcoming).length;
+    final completedTrips = trips.where((trip) => trip.status == TripStatus.completed).length;
     
     return SectionCard(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Column(
         children: [
-          // Main stats row
           Row(
             children: [
               Expanded(
                 child: _buildModernStatCard(
                   context,
-                  'Total Trips',
+                  loc.totalTrips,
                   '${trips.length}',
                   Icons.flight_takeoff_outlined,
                   theme.colorScheme.primary,
-                  'All your adventures',
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: _buildModernStatCard(
                   context,
-                  'Total Budget',
+                  loc.totalBudget,
                   '\$${_formatBudget(totalBudget)}',
                   Icons.account_balance_wallet_outlined,
                   theme.colorScheme.secondary,
-                  'Combined trip costs',
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          // Secondary stats row
           Row(
             children: [
               Expanded(
                 child: _buildModernStatCard(
                   context,
-                  'Upcoming',
+                  loc.ongoing,
                   '$upcomingTrips',
                   Icons.upcoming_outlined,
                   Colors.orange,
-                  'Planned & ongoing',
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: _buildModernStatCard(
                   context,
-                  'Completed',
+                  loc.completed,
                   '$completedTrips',
                   Icons.check_circle_outline,
                   Colors.green,
-                  'Finished trips',
                 ),
               ),
             ],
@@ -90,7 +80,6 @@ class TripStatistics extends StatelessWidget {
     String value,
     IconData icon,
     Color color,
-    String subtitle,
   ) {
     final theme = Theme.of(context);
     return Container(
@@ -115,7 +104,7 @@ class TripStatistics extends StatelessWidget {
         children: [
           Text(
             value,
-            style: context.titleMedium.copyWith(
+            style: theme.textTheme.titleMedium?.copyWith(
               color: color,
               fontWeight: FontWeight.w700,
               letterSpacing: -0.3,
@@ -126,7 +115,7 @@ class TripStatistics extends StatelessWidget {
           const SizedBox(height: 1),
           Text(
             title,
-            style: context.bodySmall.copyWith(
+            style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
               fontWeight: FontWeight.w600,
             ),

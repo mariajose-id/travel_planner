@@ -5,7 +5,6 @@ import 'package:travel_planner/core/router/app_route_names.dart';
 import 'package:travel_planner/features/auth/services/auth_service.dart';
 import 'package:travel_planner/shared/widgets/app_button.dart';
 import 'package:travel_planner/shared/widgets/text_field.dart';
-import 'package:travel_planner/shared/widgets/auth_layout.dart';
 import 'package:travel_planner/shared/widgets/theme_switch.dart';
 import 'package:travel_planner/shared/widgets/language_switch.dart';
 import 'package:travel_planner/generated/l10n/app_localizations.dart';
@@ -52,7 +51,6 @@ class _SignInScreenState extends State<SignInScreen> {
     
     return Stack(
       children: [
-        // Gradient background at absolute bottom (shorter)
         Positioned(
           bottom: 0,
           left: 0,
@@ -72,14 +70,12 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
         ),
-        // Main content
         Scaffold(
           backgroundColor: Colors.transparent,
           extendBodyBehindAppBar: true,
           body: SafeArea(
             child: Column(
               children: [
-                // Language and theme switches
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
@@ -196,12 +192,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             isLoading: _isLoading,
                           ),
                           const SizedBox(height: 24),
-                          // Google Sign In Button
                           SizedBox(
                             width: double.infinity,
                             child: OutlinedButton(
                               onPressed: () {
-                                // Google sign-in logic would go here
                               },
                               style: OutlinedButton.styleFrom(
                                 side: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.5)),
@@ -279,7 +273,6 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
                 ),
-                // Splash image at bottom of SafeArea
                 Container(
                   height: 120,
                   alignment: Alignment.bottomCenter,

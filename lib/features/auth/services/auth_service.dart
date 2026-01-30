@@ -39,7 +39,7 @@ class AuthService {
         updatedAt: DateTime.now(),
       );
       
-      await _usersBox.put(user.id, {
+      await _usersBox.put(user.email, {
         ...user.toMap(),
         'password': sanitizedPassword, 
         'createdAt': DateTime.now().toIso8601String(),
@@ -142,7 +142,13 @@ class AuthService {
         email: sanitizedEmail,
         updatedAt: DateTime.now(),
       );
-      await _usersBox.put(currentUser.id, updatedUser.toMap());
+      final existingUserData = Map<String, dynamic>.from(_usersBox.get(currentUser.email) as Map);
+      
+      await _usersBox.put(currentUser.email, {
+        ...updatedUser.toMap(),
+        'password': existingUserData['password'],
+        'createdAt': existingUserData['createdAt'],
+      });
       await _authBox.put('user', updatedUser.toMap());
       AppLogger.getLogger('AuthService').info('Profile updated for user: ${updatedUser.id}');
     } on AppException {
@@ -168,7 +174,7 @@ class AuthService {
       
       await Future.delayed(const Duration(seconds: 1));
       
-      final userData = Map<String, dynamic>.from(_usersBox.get(currentUser.id) as Map);
+      final userData = Map<String, dynamic>.from(_usersBox.get(currentUser.email) as Map);
       final currentStoredPassword = userData['password'] as String;
       
       final isCurrentPasswordValid = currentPassword == currentStoredPassword;
@@ -177,7 +183,7 @@ class AuthService {
       }
       
       userData['password'] = newPassword;
-      await _usersBox.put(currentUser.id, userData);
+      await _usersBox.put(currentUser.email, userData);
       AppLogger.getLogger('AuthService').info('Password changed for user: ${currentUser.id}');
     } on AppException {
       rethrow;
@@ -194,7 +200,7 @@ class AuthService {
       }
       AppLogger.getLogger('AuthService').info('Deleting account for user: ${currentUser.id}');
       
-      await _usersBox.delete(currentUser.id);
+      await _usersBox.delete(currentUser.email);
       
       await _authBox.clear();
       AppLogger.getLogger('AuthService').info('Account deleted successfully for user: ${currentUser.id}');

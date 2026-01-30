@@ -84,7 +84,7 @@ class UserAvatar extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  currentUser!.name,
+                  currentUser.name,
                   style: context.titleSmall.copyWith(
                     color: theme.colorScheme.onSurface,
                     fontWeight: FontWeight.w600,
@@ -96,7 +96,7 @@ class UserAvatar extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  currentUser!.email,
+                  currentUser.email,
                   style: context.bodySmall.copyWith(
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     letterSpacing: -0.1,

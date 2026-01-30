@@ -57,12 +57,11 @@ class _FooterSettingsState extends State<FooterSettings> {
     });
 
     try {
-      // Simulate saving data (in real app, save to SharedPreferences or API)
       await Future.delayed(const Duration(seconds: 1));
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Footer information saved successfully!'),
             backgroundColor: Colors.green,
           ),

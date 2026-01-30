@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_planner/features/trips/models/trip.dart';
-import 'package:travel_planner/core/theme/app_typography.dart';
+import 'package:travel_planner/features/trips/domain/entities/trip.dart';
 import 'package:travel_planner/generated/l10n/app_localizations.dart';
 
 class TripCard extends StatelessWidget {
@@ -8,6 +7,7 @@ class TripCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+
   const TripCard({
     super.key,
     required this.trip,
@@ -19,7 +19,7 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final localizations = AppLocalizations.of(context);
+    final loc = AppLocalizations.of(context);
     final statusColor = getStatusColor(trip.status);
     
     return Container(
@@ -67,7 +67,7 @@ class TripCard extends StatelessWidget {
                     children: [
                       Text(
                         trip.title,
-                        style: context.titleSmall.copyWith(
+                        style: theme.textTheme.titleSmall?.copyWith(
                           color: theme.colorScheme.onSurface,
                           fontWeight: FontWeight.w700,
                           letterSpacing: -0.3,
@@ -87,7 +87,7 @@ class TripCard extends StatelessWidget {
                           Expanded(
                             child: Text(
                               trip.destination,
-                              style: context.bodySmall.copyWith(
+                              style: theme.textTheme.bodySmall?.copyWith(
                                 color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                                 fontWeight: FontWeight.w500,
                               ),
@@ -102,7 +102,7 @@ class TripCard extends StatelessWidget {
                         children: [
                           _buildInfoChip(
                             icon: Icons.calendar_today_outlined,
-                            text: _formatDate(trip.startDate, localizations),
+                            text: _formatDate(trip.startDate),
                             color: theme.colorScheme.primary,
                           ),
                           const SizedBox(width: 8),
@@ -126,8 +126,8 @@ class TripCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
-                        trip.status.toUpperCase(),
-                        style: context.labelSmall.copyWith(
+                        _statusLabel(trip.status, loc),
+                        style: theme.textTheme.labelSmall?.copyWith(
                           color: statusColor,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.5,
@@ -155,7 +155,7 @@ class TripCard extends StatelessWidget {
                             children: [
                               Icon(Icons.edit_outlined, size: 18, color: theme.colorScheme.primary),
                               const SizedBox(width: 10),
-                              Text(localizations.editTrip, style: context.bodyMedium),
+                              Text(loc.editTrip, style: theme.textTheme.bodyMedium),
                             ],
                           ),
                         ),
@@ -165,7 +165,7 @@ class TripCard extends StatelessWidget {
                             children: [
                               const Icon(Icons.delete_outline, size: 18, color: Colors.red),
                               const SizedBox(width: 10),
-                              Text(localizations.delete, style: context.bodyMedium),
+                              Text(loc.delete, style: theme.textTheme.bodyMedium),
                             ],
                           ),
                         ),
@@ -206,69 +206,33 @@ class TripCard extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime date, AppLocalizations localizations) {
+  String _formatDate(DateTime date) {
     final month = date.month;
     final day = date.day;
     return '$month/$day';
   }
 
-  static Color getStatusColor(String status) {
-    switch (status.toLowerCase()) {
-      case 'planned':
-        return Colors.blue;
-      case 'ongoing':
-        return Colors.green;
-      case 'completed':
-        return Colors.orange;
-      case 'cancelled':
-        return Colors.red;
-      default:
-        return Colors.grey;
-    }
+  String _statusLabel(TripStatus status, AppLocalizations loc) {
+    return switch (status) {
+      TripStatus.planned => loc.planned,
+      TripStatus.upcoming => loc.ongoing,
+      TripStatus.completed => loc.completed,
+    }.toUpperCase();
   }
 
-  static IconData getStatusIcon(String status) {
-    switch (status.toLowerCase()) {
-      case 'planned':
-        return Icons.flight_takeoff;
-      case 'ongoing':
-        return Icons.flight;
-      case 'completed':
-        return Icons.check_circle;
-      case 'cancelled':
-        return Icons.cancel;
-      default:
-        return Icons.trip_origin;
-    }
+  static Color getStatusColor(TripStatus status) {
+    return switch (status) {
+      TripStatus.planned => Colors.blue,
+      TripStatus.upcoming => Colors.green,
+      TripStatus.completed => Colors.orange,
+    };
   }
 
-  static String getRelativeTime(DateTime startDate, DateTime endDate, String status) {
-    final now = DateTime.now();
-    final difference = startDate.difference(now);
-    
-    if (status.toLowerCase() == 'completed') {
-      final daysSinceEnd = now.difference(endDate).inDays;
-      if (daysSinceEnd > 30) {
-        final months = (daysSinceEnd / 30).floor();
-        return '$months month${months > 1 ? 's' : ''} ago';
-      }
-      return '$daysSinceEnd day${daysSinceEnd != 1 ? 's' : ''} ago';
-    } else if (status.toLowerCase() == 'ongoing') {
-      final daysSinceStart = now.difference(startDate).inDays;
-      if (daysSinceStart > 30) {
-        final months = (daysSinceStart / 30).floor();
-        return '$months month${months > 1 ? 's' : ''} in';
-      }
-      return 'Day $daysSinceStart';
-    } else {
-      if (difference.inDays > 30) {
-        final months = (difference.inDays / 30).floor();
-        return '$months month${months > 1 ? 's' : ''} left';
-      }
-      final daysLeft = difference.inDays;
-      if (daysLeft == 0) return 'Today';
-      if (daysLeft == 1) return 'Tomorrow';
-      return '$daysLeft days left';
-    }
+  static IconData getStatusIcon(TripStatus status) {
+    return switch (status) {
+      TripStatus.planned => Icons.flight_takeoff,
+      TripStatus.upcoming => Icons.flight,
+      TripStatus.completed => Icons.check_circle,
+    };
   }
 }

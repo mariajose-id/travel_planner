@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:travel_planner/features/trips/models/trip.dart';
+import 'package:travel_planner/features/trips/domain/entities/trip.dart';
 import 'package:travel_planner/features/trips/widgets/trip_form.dart';
 import 'package:travel_planner/generated/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
+
 class TripDialogs {
   static void showAddTripDialog(BuildContext context, Function(Trip) onSave) {
     showDialog(
@@ -17,7 +18,7 @@ class TripDialogs {
             startDate: tripData['startDate'],
             endDate: tripData['endDate'],
             budget: tripData['budget'],
-            status: tripData['status'] ?? 'planned',
+            status: tripData['status'] ?? TripStatus.planned,
             createdAt: DateTime.now(),
             updatedAt: DateTime.now(),
           );
@@ -26,6 +27,7 @@ class TripDialogs {
       ),
     );
   }
+
   static void showEditTripDialog(BuildContext context, Trip trip, Function(Trip) onSave) {
     showDialog(
       context: context,
@@ -39,13 +41,15 @@ class TripDialogs {
             startDate: tripData['startDate'],
             endDate: tripData['endDate'],
             budget: tripData['budget'],
+            status: tripData['status'] ?? trip.status,
           );
           await onSave(updatedTrip);
         },
       ),
     );
   }
-  static void showDeleteConfirmation(BuildContext context, Trip trip, Function(String) onDelete) {
+
+  static void showDeleteConfirmation(BuildContext context, Trip trip, Function(Trip) onDelete) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -61,7 +65,7 @@ class TripDialogs {
           TextButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              await onDelete(trip.id);
+              await onDelete(trip);
             },
             child: Text(AppLocalizations.of(context).delete, style: const TextStyle(color: Colors.red)),
           ),

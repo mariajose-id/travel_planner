@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:travel_planner/core/di/service_locator.dart';
 import 'package:travel_planner/core/router/app_router.dart';
 import 'package:travel_planner/core/logging/logger.dart';
 import 'package:travel_planner/features/auth/models/user.dart';
-import 'package:travel_planner/features/trips/models/trip.dart';
-import 'package:travel_planner/features/trips/providers/trip_provider.dart';
+import 'package:travel_planner/features/trips/data/models/trip_model.dart';
+import 'package:travel_planner/features/trips/data/repositories/trip_repository_impl.dart';
 import 'package:travel_planner/core/providers/language_provider.dart';
 import 'package:travel_planner/core/providers/theme_provider.dart';
 import 'package:travel_planner/core/constants/app_constants.dart';
@@ -25,14 +26,17 @@ void main() async {
   
   await Hive.initFlutter();
   
+  await setupServiceLocator();
   
   Hive.registerAdapter(UserAdapter());
-  Hive.registerAdapter(TripAdapter());
-  
+  Hive.registerAdapter(TripModelAdapter());
   
   await Hive.openBox('auth');
   await Hive.openBox('users');
-  await Hive.openBox<Trip>('trips');
+  final Box<TripModel> tripsBox = await Hive.openBox<TripModel>('trips');
+  
+  final tripRepository = TripRepositoryImpl(tripsBox: tripsBox);
+  await tripRepository.initialize();
   
   
   final languageProvider = LanguageProvider();
@@ -47,7 +51,6 @@ void main() async {
       providers: [
         ChangeNotifierProvider.value(value: languageProvider),
         ChangeNotifierProvider.value(value: themeProvider),
-        ChangeNotifierProvider(create: (_) => TripProvider()),
       ],
       child: const MyApp(),
     ),

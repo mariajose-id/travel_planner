@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_planner/generated/l10n/app_localizations.dart';
 import 'package:travel_planner/core/theme/app_typography.dart';
-import 'package:travel_planner/core/theme/app_spacing.dart';
 
 class AppFooter extends StatelessWidget {
   const AppFooter({super.key});
@@ -131,7 +130,6 @@ class AppFooter extends StatelessWidget {
     
     return GestureDetector(
       onTap: () {
-        print('Opening URL: $url');
       },
       child: Text(
         text,
