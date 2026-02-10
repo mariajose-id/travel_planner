@@ -16,9 +16,9 @@ class TripDto {
   String get title => trip.title;
 
   Color get statusColor => switch (trip.status) {
-    TripStatus.planned => Colors.blue,
-    TripStatus.upcoming => Colors.orange,
-    TripStatus.completed => Colors.green,
+    TripStatus.planned => const Color(0xFF3D2B1F), // Deep Coffee
+    TripStatus.upcoming => const Color(0xFFB45309), // Warm Amber/Burnt Orange
+    TripStatus.completed => const Color(0xFF166534), // Forest Green
   };
 
   IconData get statusIcon => switch (trip.status) {

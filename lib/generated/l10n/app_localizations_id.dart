@@ -9,223 +9,229 @@ class AppLocalizationsId extends AppLocalizations {
   AppLocalizationsId([String locale = 'id']) : super(locale);
 
   @override
-  String get appTitle => 'Perencana Perjalanan';
+  String get app_title => 'Perencana Perjalanan';
 
   @override
-  String get auth_accountCreated => 'Akun berhasil dibuat!';
+  String get toast_account_created => 'Akun berhasil dibuat!';
 
   @override
-  String get auth_email => 'Email';
+  String get label_email => 'Email';
 
   @override
-  String get auth_password => 'Kata Sandi';
+  String get label_password => 'Kata Sandi';
 
   @override
-  String get auth_confirmPassword => 'Konfirmasi Kata Sandi';
+  String get label_confirm_password => 'Konfirmasi Kata Sandi';
 
   @override
-  String get home_welcome => 'Selamat Datang';
+  String get label_welcome => 'Selamat Datang';
 
   @override
-  String get home_upcomingTrips => 'Perjalanan Mendatang';
+  String get heading_upcoming_trips => 'Perjalanan Mendatang';
 
   @override
-  String get home_recentlyViewed => 'Dilihat Baru-baru Ini';
+  String get heading_recently_viewed => 'Dilihat Baru-baru Ini';
 
   @override
-  String get errors_invalidEmail => 'Silakan masukkan email yang valid';
+  String get error_invalid_email => 'Silakan masukkan email yang valid';
 
   @override
-  String get errors_shortPassword => 'Kata sandi harus minimal 6 karakter';
+  String get error_short_password => 'Kata sandi harus minimal 6 karakter';
 
   @override
-  String get errors_passwordsDontMatch => 'Kata sandi tidak cocok';
+  String get error_passwords_dont_match => 'Kata sandi tidak cocok';
 
   @override
-  String get errors_requiredField => 'Field ini diperlukan';
+  String get error_required_field => 'Field ini diperlukan';
 
   @override
-  String get errors_genericError => 'Terjadi kesalahan. Silakan coba lagi.';
+  String get error_generic => 'Terjadi kesalahan. Silakan coba lagi.';
 
   @override
-  String get signInSubtitle => 'Masuk untuk melanjutkan';
+  String get error_email_exists => 'An account with this email already exists';
 
   @override
-  String get welcomeBack => 'Selamat Datang Kembali';
+  String get error_user_not_found => 'User not found';
 
   @override
-  String get createAccount => 'Buat Akun';
+  String get heading_sign_in_subtitle => 'Masuk untuk melanjutkan';
 
   @override
-  String get or => 'ATAU';
+  String get heading_welcome_back => 'Selamat Datang Kembali';
 
   @override
-  String get alreadyHaveAccount => 'Sudah punya akun? Masuk';
+  String get heading_create_account => 'Buat Akun';
 
   @override
-  String get fullName => 'Nama Lengkap';
+  String get label_or => 'ATAU';
 
   @override
-  String get enterFullName => 'Masukkan nama lengkap Anda';
+  String get label_already_have_account => 'Sudah punya akun? Masuk';
 
   @override
-  String get enterEmail => 'Masukkan email Anda';
+  String get label_full_name => 'Nama Lengkap';
 
   @override
-  String get enterPassword => 'Masukkan kata sandi Anda';
+  String get hint_enter_full_name => 'Masukkan nama lengkap Anda';
 
   @override
-  String get enterConfirmPassword => 'Konfirmasi kata sandi Anda';
+  String get hint_enter_email => 'Masukkan email Anda';
 
   @override
-  String get createAccountButton => 'Buat Akun';
+  String get hint_enter_password => 'Masukkan kata sandi Anda';
 
   @override
-  String get signInButton => 'Masuk';
+  String get hint_confirm_password => 'Konfirmasi kata sandi Anda';
 
   @override
-  String get fillInDetails => 'Isi detail Anda untuk memulai';
+  String get action_create_account => 'Buat Akun';
 
   @override
-  String get journeyStartsHere => 'Perjalanan Anda dimulai di sini';
+  String get action_sign_in => 'Masuk';
 
   @override
-  String get signOut => 'Keluar';
+  String get heading_fill_details => 'Isi detail Anda untuk memulai';
 
   @override
-  String get settings => 'Pengaturan';
+  String get heading_journey_starts => 'Perjalanan Anda dimulai di sini';
 
   @override
-  String get appSettings => 'Pengaturan Aplikasi';
+  String get action_sign_out => 'Keluar';
 
   @override
-  String get termsOfService => 'Ketentuan Layanan';
+  String get heading_settings => 'Pengaturan';
 
   @override
-  String get privacyPolicy => 'Kebijakan Privasi';
+  String get heading_app_settings => 'Pengaturan Aplikasi';
 
   @override
-  String get contactUs => 'Hubungi Kami';
+  String get label_terms_of_service => 'Ketentuan Layanan';
 
   @override
-  String get cancel => 'Batal';
+  String get label_privacy_policy => 'Kebijakan Privasi';
 
   @override
-  String get selectDate => 'Pilih tanggal';
+  String get label_contact_us => 'Hubungi Kami';
 
   @override
-  String get explore => 'Jelajahi';
+  String get action_cancel => 'Batal';
 
   @override
-  String get favorites => 'Favorit';
+  String get action_select_date => 'Pilih tanggal';
 
   @override
-  String get yourTrips => 'Perjalanan Anda';
+  String get tab_explore => 'Jelajahi';
 
   @override
-  String get errorLoadingTrips => 'Gagal memuat perjalanan';
+  String get tab_favorites => 'Favorit';
 
   @override
-  String get noRecentTrips => 'Tidak ada perjalanan terbaru';
+  String get tab_your_trips => 'Perjalanan Anda';
 
   @override
-  String get startPlanning => 'Mulai rencanakan petualangan berikutnya';
+  String get error_loading_trips => 'Gagal memuat perjalanan';
 
   @override
-  String get addTrip => 'Tambah Perjalanan';
+  String get label_no_recent_trips => 'Tidak ada perjalanan terbaru';
 
   @override
-  String get totalTrips => 'Total Perjalanan';
+  String get label_start_planning => 'Mulai rencanakan petualangan berikutnya';
 
   @override
-  String get totalBudget => 'Total Anggaran';
+  String get action_add_trip => 'Tambah Perjalanan';
 
   @override
-  String get planned => 'Direncanakan';
+  String get label_total_trips => 'Total Perjalanan';
 
   @override
-  String get ongoing => 'Sedang Berlangsung';
+  String get label_total_budget => 'Total Anggaran';
 
   @override
-  String get completed => 'Selesai';
+  String get label_status_planned => 'Direncanakan';
 
   @override
-  String get tripDetails => 'Detail Perjalanan';
+  String get label_status_ongoing => 'Sedang Berlangsung';
 
   @override
-  String get close => 'Tutup';
+  String get label_status_completed => 'Selesai';
 
   @override
-  String get description => 'Deskripsi';
+  String get heading_trip_details => 'Detail Perjalanan';
 
   @override
-  String get enterTripDescription => 'Masukkan deskripsi perjalanan';
+  String get action_close => 'Tutup';
 
   @override
-  String get destination => 'Tujuan';
+  String get label_description => 'Deskripsi';
 
   @override
-  String get enterDestination => 'Masukkan tujuan';
+  String get hint_enter_trip_description => 'Masukkan deskripsi perjalanan';
 
   @override
-  String get startDate => 'Tanggal Mulai';
+  String get label_destination => 'Tujuan';
 
   @override
-  String get endDate => 'Tanggal Berakhir';
+  String get hint_enter_destination => 'Masukkan tujuan';
 
   @override
-  String get budget => 'Anggaran';
+  String get label_start_date => 'Tanggal Mulai';
 
   @override
-  String get status => 'Status';
+  String get label_end_date => 'Tanggal Berakhir';
 
   @override
-  String get addNewTrip => 'Tambah Perjalanan Baru';
+  String get label_budget => 'Anggaran';
 
   @override
-  String get editTrip => 'Edit Perjalanan';
+  String get label_status => 'Status';
 
   @override
-  String get edit => 'Edit';
+  String get action_add_new_trip => 'Tambah Perjalanan Baru';
 
   @override
-  String get delete => 'Hapus';
+  String get heading_edit_trip => 'Edit Perjalanan';
 
   @override
-  String get retry => 'Coba Lagi';
+  String get action_edit => 'Edit';
 
   @override
-  String get tripTitle => 'Judul Perjalanan';
+  String get action_delete => 'Hapus';
 
   @override
-  String get updateTrip => 'Perbarui Perjalanan';
+  String get action_retry => 'Coba Lagi';
 
   @override
-  String get enterTripTitle => 'Silakan masukkan judul perjalanan';
+  String get label_trip_title => 'Judul Perjalanan';
 
   @override
-  String get pleaseEnterValidNumber => 'Silakan masukkan nomor yang valid';
+  String get action_update_trip => 'Perbarui Perjalanan';
 
   @override
-  String get toast_welcomeBack => 'Selamat datang kembali!';
+  String get hint_enter_trip_title => 'Masukkan judul perjalanan';
 
   @override
-  String get toast_invalidCredentials => 'Email atau kata sandi tidak valid';
+  String get error_invalid_number => 'Silakan masukkan nomor yang valid';
 
   @override
-  String get toast_tripCreated => 'Perjalanan berhasil dibuat!';
+  String get toast_welcome_back => 'Selamat datang kembali!';
 
   @override
-  String toast_tripError(String error) {
+  String get error_invalid_credentials => 'Email atau kata sandi tidak valid';
+
+  @override
+  String get toast_trip_created => 'Perjalanan berhasil dibuat!';
+
+  @override
+  String error_trip_generic(String error) {
     return 'Kesalahan: $error';
   }
 
   @override
-  String get toast_endDateAfterStart =>
+  String get error_end_date_after_start =>
       'Tanggal akhir harus setelah tanggal mulai';
 
   @override
-  String get toast_selectBothDates => 'Silakan pilih tanggal mulai dan akhir';
+  String get error_select_both_dates => 'Silakan pilih tanggal mulai dan akhir';
 
   @override
   String get nav_home => 'Beranda';
@@ -240,42 +246,42 @@ class AppLocalizationsId extends AppLocalizations {
   String get nav_saved => 'Tersimpan';
 
   @override
-  String get quickActions => 'Aksi Cepat';
+  String get heading_quick_actions => 'Aksi Cepat';
 
   @override
-  String get viewYourTrips => 'Lihat perjalanan Anda';
+  String get label_view_your_trips => 'Lihat perjalanan Anda';
 
   @override
-  String get recentPlaces => 'Tempat baru-baru ini';
+  String get heading_recent_places => 'Tempat baru-baru ini';
 
   @override
-  String get savedPlaces => 'Tempat tersimpan';
+  String get heading_saved_places => 'Tempat tersimpan';
 
   @override
-  String get recentActivity => 'Aktivitas Terbaru';
+  String get heading_recent_activity => 'Aktivitas Terbaru';
 
   @override
-  String get profile => 'Profil';
+  String get heading_profile => 'Profil';
 
   @override
-  String comingSoon(String feature) {
+  String label_coming_soon(String feature) {
     return '$feature - Segera Hadir';
   }
 
   @override
-  String get tripStatusPlanned => 'Direncanakan';
+  String get label_status_planned_tag => 'Direncanakan';
 
   @override
-  String get tripStatusOngoing => 'Sedang Berlangsung';
+  String get label_status_ongoing_tag => 'Sedang Berlangsung';
 
   @override
-  String get tripStatusCompleted => 'Selesai';
+  String get label_status_completed_tag => 'Selesai';
 
   @override
-  String get tripStatusCancelled => 'Dibatalkan';
+  String get label_status_cancelled_tag => 'Dibatalkan';
 
   @override
-  String get signInWithGoogle => 'Lanjutkan dengan Google';
+  String get action_sign_in_google => 'Lanjutkan dengan Google';
 
   @override
   String get tab_profile => 'Profil';
@@ -287,119 +293,237 @@ class AppLocalizationsId extends AppLocalizations {
   String get tab_account => 'Akun';
 
   @override
-  String get manageYourProfile => 'Kelola profil dan preferensi Anda';
+  String get label_manage_profile => 'Kelola profil dan preferensi Anda';
 
   @override
-  String get theme => 'Tema';
+  String get label_theme => 'Tema';
 
   @override
-  String get chooseTheme => 'Pilih tema pilihan Anda';
+  String get label_choose_theme => 'Pilih tema pilihan Anda';
 
   @override
-  String get notifications => 'Notifikasi';
+  String get label_notifications => 'Notifikasi';
 
   @override
-  String get manageNotifications => 'Kelola preferensi notifikasi Anda';
+  String get label_manage_notifications => 'Kelola preferensi notifikasi Anda';
 
   @override
-  String get privacy => 'Privasi';
+  String get label_privacy => 'Privasi';
 
   @override
-  String get managePrivacy => 'Kelola privasi dan pengaturan data Anda';
+  String get label_manage_privacy => 'Kelola privasi dan pengaturan data Anda';
 
   @override
-  String get language => 'Bahasa';
+  String get label_language => 'Bahasa';
 
   @override
-  String get signOutConfirmation => 'Apakah Anda yakin ingin keluar?';
+  String get dialog_sign_out_title => 'Apakah Anda yakin ingin keluar?';
 
   @override
-  String get deleteAccount => 'Hapus Akun';
+  String get action_delete_account => 'Hapus Akun';
 
   @override
-  String get deleteAccountWarning => 'Tindakan ini tidak dapat dibatalkan';
+  String get label_delete_account_warning =>
+      'Tindakan ini tidak dapat dibatalkan';
 
   @override
-  String get failedToSignOut => 'Gagal keluar';
+  String get error_failed_sign_out => 'Gagal keluar';
 
   @override
-  String get deleteAccountConfirmation =>
+  String get dialog_delete_account_confirm =>
       'Apakah Anda yakin ingin menghapus akun Anda? Semua data Anda akan dihapus secara permanen.';
 
   @override
-  String get failedToDeleteAccount => 'Gagal menghapus akun';
+  String get error_failed_delete_account => 'Gagal menghapus akun';
 
   @override
-  String get deleteTrip => 'Hapus Perjalanan';
+  String get action_delete_trip => 'Hapus Perjalanan';
 
   @override
-  String deleteTripConfirmation(String tripTitle) {
+  String dialog_delete_trip_confirm(String tripTitle) {
     return 'Apakah Anda yakin ingin menghapus \"$tripTitle\"?';
   }
 
   @override
-  String get noTrips => 'Belum ada perjalanan';
+  String get label_no_trips => 'Belum ada perjalanan';
 
   @override
-  String get somethingWentWrong => 'Terjadi kesalahan';
+  String get error_something_went_wrong => 'Terjadi kesalahan';
 
   @override
-  String get goHome => 'Pergi ke Beranda';
+  String get action_go_home => 'Pergi ke Beranda';
 
   @override
-  String get pageNotFound => 'Halaman tidak ditemukan';
+  String get heading_page_not_found => 'Halaman tidak ditemukan';
 
   @override
-  String get thePageYoureLookingForDoesntExist =>
-      'Halaman yang Anda cari tidak ada.';
+  String get label_page_not_found_desc => 'Halaman yang Anda cari tidak ada.';
 
   @override
-  String get themeLight => 'Terang';
+  String get label_theme_light => 'Terang';
 
   @override
-  String get themeDark => 'Gelap';
+  String get label_theme_dark => 'Gelap';
 
   @override
-  String get themeSystem => 'Sistem';
+  String get label_theme_system => 'Sistem';
 
   @override
-  String get networkError => 'Kesalahan Jaringan';
+  String get error_network => 'Kesalahan Jaringan';
 
   @override
-  String get pleaseCheckYourInternetConnection =>
+  String get error_network_desc =>
       'Silakan periksa koneksi internet Anda dan coba lagi.';
 
   @override
-  String get serverError => 'Kesalahan Server';
+  String get error_server => 'Kesalahan Server';
 
   @override
-  String get ourServersAreExperiencingIssues =>
+  String get error_server_desc =>
       'Server kami mengalami masalah. Silakan coba lagi nanti.';
 
   @override
-  String get unknownErrorMessage => 'Terjadi kesalahan yang tidak diketahui';
+  String get error_unknown => 'Terjadi kesalahan yang tidak diketahui';
 
   @override
-  String get timeoutErrorMessage => 'Permintaan habis waktu';
+  String get error_timeout => 'Permintaan habis waktu';
 
   @override
-  String get successMessage => 'Operasi berhasil diselesaikan';
+  String get toast_success_generic => 'Operasi berhasil diselesaikan';
 
   @override
-  String get personalInformation => 'Personal Information';
+  String get heading_personal_info => 'Informasi Pribadi';
 
   @override
-  String get email => 'Email';
+  String get label_email_simple => 'Email';
 
   @override
-  String get name => 'Name';
+  String get label_name => 'Nama';
 
   @override
-  String get enterName => 'Enter your name';
+  String get hint_enter_name => 'Masukkan nama Anda';
 
   @override
-  String get editProfile => 'Edit Profile';
+  String get heading_edit_profile => 'Edit Profil';
 
   @override
-  String get save => 'Save';
+  String get action_save => 'Simpan';
+
+  @override
+  String get toast_welcome_to_wanderly => 'Selamat datang di Wanderly!';
+
+  @override
+  String get heading_sign_up_subtitle =>
+      'Bergabung dengan komunitas traveler kami';
+
+  @override
+  String get heading_create_trip => 'Buat Perjalanan';
+
+  @override
+  String get hint_enter_description => 'Masukkan deskripsi perjalanan';
+
+  @override
+  String get hint_enter_budget => 'Masukkan anggaran Anda';
+
+  @override
+  String get action_create => 'Buat';
+
+  @override
+  String get action_sign_up => 'Daftar';
+
+  @override
+  String get label_confirm_password_simple => 'Konfirmasi Kata Sandi';
+
+  @override
+  String get hint_confirm_password_simple => 'Konfirmasi kata sandi Anda';
+
+  @override
+  String get error_invalid_name => 'Silakan masukkan nama yang valid';
+
+  @override
+  String get label_all => 'Semua';
+
+  @override
+  String get heading_welcome => 'Selamat Datang';
+
+  @override
+  String get label_profile_updated => 'Profil berhasil diperbarui';
+
+  @override
+  String get label_no_changes => 'Tidak ada perubahan untuk disimpan';
+
+  @override
+  String get error_update_profile => 'Gagal memperbarui profil';
+
+  @override
+  String get nav_lists => 'Daftar';
+
+  @override
+  String get label_currency_converter => 'Converter';
+
+  @override
+  String get heading_trip_lists => 'Daftar Perjalanan';
+
+  @override
+  String get label_no_lists => 'Belum ada daftar';
+
+  @override
+  String get label_add_note => 'Tambah Catatan';
+
+  @override
+  String get label_add_checklist => 'Tambah Daftar Periksa';
+
+  @override
+  String get hint_note_title => 'Judul';
+
+  @override
+  String get hint_note_content => 'Tulis sesuatu...';
+
+  @override
+  String get hint_checklist_item => 'Item baru';
+
+  @override
+  String get label_notes => 'Catatan';
+
+  @override
+  String get label_checklists => 'Daftar Periksa';
+
+  @override
+  String get action_delete_note => 'Hapus Catatan';
+
+  @override
+  String get dialog_delete_note_confirm =>
+      'Apakah Anda yakin ingin menghapus catatan ini?';
+
+  @override
+  String label_hello(String name) {
+    return 'Halo, $name';
+  }
+
+  @override
+  String get heading_account_actions => 'Aksi Akun';
+
+  @override
+  String get heading_developer_tools => 'Alat Pengembang';
+
+  @override
+  String get label_wanderly_console => 'Konsol Wanderly';
+
+  @override
+  String get label_wanderly_console_desc =>
+      'Inspeksi log sistem dan diagnostik';
+
+  @override
+  String get toast_account_deleted => 'Akun berhasil dihapus';
+
+  @override
+  String error_failed_delete_account_full(String error) {
+    return 'Gagal menghapus akun: $error';
+  }
+
+  @override
+  String get label_manage_data => 'Kelola izin perangkat';
+
+  @override
+  String get label_verified => 'Terverifikasi';
 }

@@ -115,4 +115,42 @@ class AuthenticationUseCase {
 
     return Result.success(null);
   }
+
+  Future<Result<void>> deleteAccount() async {
+    final userResult = await _repository.getCurrentUser();
+    if (userResult.isFailure) {
+      return Result.failure(userResult.error!);
+    }
+
+    final deleteResult = await _repository.deleteAccount();
+    if (deleteResult.isFailure) {
+      return deleteResult;
+    }
+
+    return Result.success(null);
+  }
+
+  Future<Result<User>> updateProfile({
+    required String name,
+    required String email,
+  }) async {
+    final nameResult = UserName.create(name);
+    if (nameResult.isFailure) {
+      return Result.failure(nameResult.error!);
+    }
+
+    final emailResult = Email.create(email);
+    if (emailResult.isFailure) {
+      return Result.failure(emailResult.error!);
+    }
+
+    return _repository.updateProfile(
+      name: nameResult.value!.value,
+      email: emailResult.value!.value,
+    );
+  }
+
+  Future<Result<User>> updateAvatar({required String? avatarUrl}) async {
+    return _repository.updateAvatar(avatarUrl: avatarUrl);
+  }
 }

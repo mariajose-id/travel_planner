@@ -1,36 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:travel_planner/core/providers/theme_provider.dart';
-import 'package:travel_planner/core/theme/app_typography.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
+import 'package:travel_planner/core/providers/theme_notifier.dart';
 import 'package:travel_planner/shared/widgets/app_dropdown.dart';
-import 'package:travel_planner/generated/l10n/app_localizations.dart';
 
-class ThemeSwitch extends StatelessWidget {
+class ThemeSwitch extends ConsumerWidget {
   const ThemeSwitch({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final themeProvider = context.watch<ThemeProvider>();
-
-    final currentMode = themeProvider.themeMode;
-    final currentValue = _getThemeValue(currentMode);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeProvider);
+    final themeNotifier = ref.read(themeProvider.notifier);
+    final currentValue = themeMode.name;
 
     return AppDropdown<String>(
       value: currentValue,
       borderRadius: 12,
       onChanged: (String? newValue) {
         if (newValue != null) {
-          switch (newValue) {
-            case 'light':
-              themeProvider.setThemeMode(ThemeMode.light);
-              break;
-            case 'dark':
-              themeProvider.setThemeMode(ThemeMode.dark);
-              break;
-            case 'system':
-              themeProvider.setThemeMode(ThemeMode.system);
-              break;
-          }
+          final mode = ThemeMode.values.firstWhere((e) => e.name == newValue);
+          themeNotifier.setThemeMode(mode);
         }
       },
       items: [
@@ -45,8 +34,8 @@ class ThemeSwitch extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                AppLocalizations.of(context).themeLight,
-                style: context.labelLarge,
+                context.l10n.label_theme_light,
+                style: context.textTheme.labelLarge,
               ),
             ],
           ),
@@ -58,12 +47,12 @@ class ThemeSwitch extends StatelessWidget {
               const Icon(
                 Icons.dark_mode_outlined,
                 size: 20,
-                color: Color(0xFFE91E63),
+                color: Color(0xFFD4AF37),
               ),
               const SizedBox(width: 8),
               Text(
-                AppLocalizations.of(context).themeDark,
-                style: context.labelLarge,
+                context.l10n.label_theme_dark,
+                style: context.textTheme.labelLarge,
               ),
             ],
           ),
@@ -79,24 +68,13 @@ class ThemeSwitch extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                AppLocalizations.of(context).themeSystem,
-                style: context.labelLarge,
+                context.l10n.label_theme_system,
+                style: context.textTheme.labelLarge,
               ),
             ],
           ),
         ),
       ],
     );
-  }
-
-  String _getThemeValue(ThemeMode mode) {
-    switch (mode) {
-      case ThemeMode.light:
-        return 'light';
-      case ThemeMode.dark:
-        return 'dark';
-      case ThemeMode.system:
-        return 'system';
-    }
   }
 }

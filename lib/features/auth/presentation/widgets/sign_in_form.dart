@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
 import 'package:travel_planner/core/router/app_routes.dart';
 import 'package:travel_planner/core/result/result_handler.dart';
-import 'package:travel_planner/features/auth/presentation/providers/auth_provider.dart';
-import 'package:travel_planner/generated/l10n/app_localizations.dart';
+import 'package:travel_planner/features/auth/presentation/providers/auth_notifier.dart';
+import 'package:travel_planner/features/auth/presentation/providers/sign_in_form_provider.dart';
 import 'package:travel_planner/shared/widgets/app_button.dart';
 import 'package:travel_planner/shared/widgets/forms/app_text_field.dart';
-import 'package:travel_planner/core/theme/app_typography.dart';
 import 'package:travel_planner/features/auth/presentation/widgets/auth_header.dart';
 
-class SignInForm extends StatefulWidget {
+class SignInForm extends ConsumerStatefulWidget {
   const SignInForm({super.key});
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  ConsumerState<SignInForm> createState() => _SignInFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignInFormState extends ConsumerState<SignInForm>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isLoading = false;
-  bool _isPasswordVisible = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -34,169 +35,144 @@ class _SignInFormState extends State<SignInForm> {
   Future<void> _signIn() async {
     if (_formKey.currentState?.validate() != true) return;
 
-    setState(() => _isLoading = true);
-    try {
-      final authProvider = context.read<AuthProvider>();
-      final loc = AppLocalizations.of(context);
+    final successMessage = context.l10n.toast_welcome_back;
 
-      await authProvider.login(_emailController.text, _passwordController.text);
+    final result = await ref
+        .read(authNotifierProvider.notifier)
+        .login(_emailController.text, _passwordController.text);
 
+    if (result.isSuccess) {
       if (!mounted) return;
-
-      if (authProvider.currentUser != null) {
-        ResultHandler.showSuccessToast(context, loc.toast_welcomeBack);
-        context.goNamed(AppRoutes.home);
-      } else if (authProvider.error != null) {
-        ResultHandler.showErrorToast(context, authProvider.error!);
-      }
-    } catch (e) {
-      if (mounted) {
-        final loc = AppLocalizations.of(context);
-        ResultHandler.showErrorToast(context, loc.toast_invalidCredentials);
-      }
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
+      ResultHandler.showSuccessToast(context, successMessage);
+      context.goNamed(AppRoutes.home);
+    } else {
+      if (!mounted) return;
+      ResultHandler.handleResult(context, result);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final loc = AppLocalizations.of(context);
+    super.build(context);
+    final authState = ref.watch(authNotifierProvider);
+    final formState = ref.watch(signInFormNotifierProvider);
 
-    return Container(
-      padding: const EdgeInsets.all(32),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AuthHeader(
+            title: context.l10n.heading_welcome_back,
+            subtitle: context.l10n.heading_sign_in_subtitle,
+          ),
+          const SizedBox(height: 24),
+          AppTextField(
+            controller: _emailController,
+            label: context.l10n.label_email,
+            hint: context.l10n.hint_enter_email,
+            prefixIcon: Icons.email_outlined,
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            validator: (val) {
+              if (val == null || val.isEmpty) {
+                return context.l10n.error_required_field;
+              }
+              if (!val.contains('@')) {
+                return context.l10n.error_invalid_email;
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+          AppTextField(
+            controller: _passwordController,
+            label: context.l10n.label_password,
+            hint: context.l10n.hint_enter_password,
+            prefixIcon: Icons.lock_outline,
+            obscureText: !formState.isPasswordVisible,
+            textInputAction: TextInputAction.done,
+            validator: (val) {
+              if (val == null || val.isEmpty) {
+                return context.l10n.error_required_field;
+              }
+              if (val.length < 6) {
+                return context.l10n.error_short_password;
+              }
+              return null;
+            },
+            suffixIcon: IconButton(
+              icon: Icon(
+                formState.isPasswordVisible
+                    ? Icons.visibility_off_outlined
+                    : Icons.visibility_outlined,
+                color: context.colorScheme.primary,
+              ),
+              onPressed: () => ref
+                  .read(signInFormNotifierProvider.notifier)
+                  .togglePasswordVisibility(),
+            ),
+          ),
+          const SizedBox(height: 24),
+          AppButton(
+            text: context.l10n.action_sign_in,
+            onPressed: authState.isLoading ? null : _signIn,
+            isLoading: authState.isLoading,
+          ),
+          const SizedBox(height: 16),
+          _buildDivider(context),
+          const SizedBox(height: 16),
+          OutlinedButton(
+            onPressed: () {},
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(
+                color: context.colorScheme.outline.withValues(alpha: 0.2),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 14),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.g_mobiledata, size: 24),
+                const SizedBox(width: 8),
+                Text(
+                  context.l10n.action_sign_in_google,
+                  style: context.textTheme.labelLarge,
+                ),
+              ],
+            ),
           ),
         ],
-      ),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            AuthHeader(title: loc.welcomeBack, subtitle: loc.signInSubtitle),
-            const SizedBox(height: 32),
-            AppTextField(
-              controller: _emailController,
-              label: loc.auth_email,
-              hint: loc.enterEmail,
-              prefixIcon: Icons.email_outlined,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              validator: (val) {
-                if (val == null || val.isEmpty) return loc.errors_requiredField;
-                if (!RegExp(
-                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                ).hasMatch(val)) {
-                  return loc.errors_invalidEmail;
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 20),
-            AppTextField(
-              controller: _passwordController,
-              label: loc.auth_password,
-              hint: loc.enterPassword,
-              prefixIcon: Icons.lock_outline,
-              obscureText: !_isPasswordVisible,
-              textInputAction: TextInputAction.done,
-              validator: (val) {
-                if (val == null || val.isEmpty) return loc.errors_requiredField;
-                if (val.length < 6) return loc.errors_shortPassword;
-                return null;
-              },
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _isPasswordVisible
-                      ? Icons.visibility_off_outlined
-                      : Icons.visibility_outlined,
-                  color: theme.colorScheme.primary,
-                ),
-                onPressed: () =>
-                    setState(() => _isPasswordVisible = !_isPasswordVisible),
-              ),
-            ),
-            const SizedBox(height: 32),
-            AppButton(
-              text: loc.signInButton,
-              onPressed: _signIn,
-              isLoading: _isLoading,
-            ),
-            const SizedBox(height: 24),
-            OutlinedButton(
-              onPressed: () {},
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  color: theme.colorScheme.outline.withValues(alpha: 0.5),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                backgroundColor: theme.colorScheme.surface,
-              ),
-              child: Text(
-                loc.signInWithGoogle,
-                style: context.buttonText.copyWith(
-                  color: theme.colorScheme.onSurface,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            _buildDivider(theme, loc),
-            const SizedBox(height: 16),
-            OutlinedButton(
-              onPressed: () => context.goNamed(AppRoutes.signUp),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: theme.colorScheme.primary),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: Text(
-                loc.createAccount,
-                style: context.buttonText.copyWith(
-                  color: theme.colorScheme.primary,
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
 
-  Widget _buildDivider(ThemeData theme, AppLocalizations loc) {
+  Widget _buildDivider(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: Divider(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: context.colorScheme.outline.withValues(alpha: 0.1),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
-            loc.or,
+            context.l10n.label_or,
             style: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: context.colorScheme.onSurface.withValues(alpha: 0.4),
             ),
           ),
         ),
         Expanded(
           child: Divider(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: context.colorScheme.outline.withValues(alpha: 0.1),
           ),
         ),
       ],

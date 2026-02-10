@@ -12,6 +12,23 @@ class Money {
   factory Money.fromAmount(double amount, String currency) =>
       Money((amount * 100).round(), currency);
 
+  /// Robustly parse a string to a Money object.
+  /// Handles commas, spaces, and currency symbols.
+  static Money? tryParse(String value, [String? currency]) {
+    if (value.isEmpty) return null;
+
+    // Remove anything that isn't a digit, a period, or a minus sign
+    final cleanValue = value.replaceAll(RegExp(r'[^0-9.-]'), '');
+
+    final amount = double.tryParse(cleanValue);
+    if (amount == null) return null;
+
+    return Money.fromAmount(
+      amount,
+      currency ?? AppConstants.defaultCurrencyCode,
+    );
+  }
+
   /// Get amount as double for display (only when needed)
   double get amount => cents / 100.0;
 

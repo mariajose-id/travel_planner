@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:travel_planner/features/trips/domain/entities/trip.dart';
-import 'package:travel_planner/features/trips/presentation/controllers/trip_view_model.dart';
+import 'package:travel_planner/features/trips/presentation/providers/trip_notifier.dart';
 import 'package:travel_planner/features/trips/presentation/widgets/trips_tab.dart';
 import 'package:travel_planner/features/trips/presentation/widgets/trips_app_bar.dart';
 import 'package:travel_planner/features/trips/presentation/widgets/trip_statistics.dart';
 import 'package:travel_planner/features/trips/presentation/widgets/trip_dialogs.dart';
+import 'package:travel_planner/features/auth/presentation/providers/auth_notifier.dart';
 
-class TripsScreen extends StatefulWidget {
+import 'package:travel_planner/shared/widgets/app_background_gradient.dart';
+
+class TripsScreen extends ConsumerStatefulWidget {
   const TripsScreen({super.key});
 
   @override
-  State<TripsScreen> createState() => _TripsScreenState();
+  ConsumerState<TripsScreen> createState() => _TripsScreenState();
 }
 
-class _TripsScreenState extends State<TripsScreen>
+class _TripsScreenState extends ConsumerState<TripsScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
 
@@ -35,42 +38,67 @@ class _TripsScreenState extends State<TripsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<TripViewModel>();
+    final tripsState = ref.watch(tripsProvider);
 
-    return Scaffold(
-      appBar: TripsAppBar(tabController: _tabController),
-      body: Column(
-        spacing: 0,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TripStatistics(trips: viewModel.allTrips),
+    return Stack(
+      children: [
+        const Positioned.fill(
+          child: AppBackgroundGradient(
+            direction: GradientDirection.topToBottom,
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: TripStatus.values
-                  .map((s) => TripsTab(status: s))
-                  .toList(),
+        ),
+        Scaffold(
+          extendBodyBehindAppBar: true,
+          backgroundColor: Colors.transparent,
+          appBar: TripsAppBar(tabController: _tabController),
+          body: SafeArea(
+            bottom: false,
+            child: tripsState.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (err, stack) => Center(child: Text('Error: $err')),
+              data: (trips) => Column(
+                spacing: 0,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: TripStatistics(trips: trips),
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: TripStatus.values
+                          .map((s) => TripsTab(status: s))
+                          .toList(),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ],
-      ),
-      floatingActionButton: _AddTripButton(viewModel: viewModel),
+          floatingActionButton: const Padding(
+            padding: EdgeInsets.only(bottom: 80),
+            child: _AddTripButton(),
+          ),
+        ),
+      ],
     );
   }
 }
 
-class _AddTripButton extends StatelessWidget {
-  final TripViewModel viewModel;
-  
-  const _AddTripButton({required this.viewModel});
+class _AddTripButton extends ConsumerWidget {
+  const _AddTripButton();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authNotifierProvider).value;
+    final tripNotifier = ref.read(tripsProvider.notifier);
+
     return FloatingActionButton(
-      onPressed: () =>
-          TripDialogs.showAddTripDialog(context, viewModel.addTrip, viewModel.userId),
+      onPressed: () => TripDialogs.showAddTripDialog(
+        context,
+        tripNotifier.addTrip,
+        user?.id ?? '',
+      ),
       child: const Icon(Icons.add),
     );
   }

@@ -7,6 +7,8 @@ import 'package:travel_planner/features/auth/data/datasources/local/auth_local_d
 import 'package:travel_planner/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:travel_planner/features/auth/domain/repositories/auth_repository.dart';
 import 'package:travel_planner/features/auth/domain/usecases/authentication_usecase.dart';
+import 'package:travel_planner/features/trip_lists/domain/repositories/trip_note_repository.dart';
+import 'package:travel_planner/features/trip_lists/data/repositories/trip_note_repository_impl.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -31,6 +33,10 @@ Future<void> setupServiceLocator() async {
   );
   serviceLocator.registerLazySingleton<TripUseCases>(
     () => TripUseCases(serviceLocator()),
+  );
+
+  serviceLocator.registerLazySingleton<TripNoteRepository>(
+    () => TripNoteRepositoryImpl(HiveService.getTripNotesBox()),
   );
 }
 

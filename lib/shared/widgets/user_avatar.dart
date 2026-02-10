@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
 import 'package:travel_planner/features/auth/domain/entities/user.dart';
-import 'package:travel_planner/features/auth/presentation/providers/auth_provider.dart';
-import 'package:travel_planner/core/theme/app_typography.dart';
+import 'package:travel_planner/features/auth/presentation/providers/auth_notifier.dart';
 
-class UserAvatar extends StatelessWidget {
+class UserAvatar extends ConsumerWidget {
   final User? user;
   final double size;
   final bool showName;
   final bool showStatus;
   final VoidCallback? onTap;
+
   const UserAvatar({
     super.key,
     this.user,
@@ -18,12 +19,10 @@ class UserAvatar extends StatelessWidget {
     this.showStatus = false,
     this.onTap,
   });
+
   @override
-  Widget build(BuildContext context) {
-    final currentUser =
-        user ??
-        context.select<AuthProvider, User?>((provider) => provider.currentUser);
-    final theme = Theme.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentUser = user ?? ref.watch(authNotifierProvider).value;
 
     return GestureDetector(
       onTap: onTap,
@@ -38,14 +37,14 @@ class UserAvatar extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  theme.colorScheme.primary,
-                  theme.colorScheme.primary.withValues(alpha: 0.8),
+                  context.colorScheme.primary,
+                  context.colorScheme.primary.withValues(alpha: 0.8),
                 ],
               ),
               borderRadius: BorderRadius.circular(size / 2),
               boxShadow: [
                 BoxShadow(
-                  color: theme.colorScheme.primary.withValues(alpha: 0.3),
+                  color: context.colorScheme.primary.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 4),
                 ),
@@ -58,7 +57,7 @@ class UserAvatar extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                Center(child: _buildFallbackAvatar(context, theme)),
+                Center(child: _buildFallbackAvatar(context)),
                 if (showStatus) ...[
                   Positioned(
                     bottom: 0,
@@ -67,10 +66,10 @@ class UserAvatar extends StatelessWidget {
                       width: size * 0.25,
                       height: size * 0.25,
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primary,
+                        color: context.colorScheme.primary,
                         borderRadius: BorderRadius.circular(size * 0.125),
                         border: Border.all(
-                          color: theme.colorScheme.surface,
+                          color: context.colorScheme.surface,
                           width: 2,
                         ),
                       ),
@@ -86,8 +85,8 @@ class UserAvatar extends StatelessWidget {
               children: [
                 Text(
                   currentUser.name,
-                  style: context.titleSmall.copyWith(
-                    color: theme.colorScheme.onSurface,
+                  style: context.textTheme.titleSmall?.copyWith(
+                    color: context.colorScheme.onSurface,
                     fontWeight: FontWeight.w600,
                     letterSpacing: -0.2,
                   ),
@@ -98,8 +97,8 @@ class UserAvatar extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   currentUser.email,
-                  style: context.bodySmall.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  style: context.textTheme.bodySmall?.copyWith(
+                    color: context.colorScheme.onSurface.withValues(alpha: 0.6),
                     letterSpacing: -0.1,
                   ),
                   textAlign: TextAlign.center,
@@ -114,7 +113,7 @@ class UserAvatar extends StatelessWidget {
     );
   }
 
-  Widget _buildFallbackAvatar(BuildContext context, ThemeData theme) {
+  Widget _buildFallbackAvatar(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(size / 2),
       child: Image.asset(
@@ -126,7 +125,7 @@ class UserAvatar extends StatelessWidget {
           return Icon(
             Icons.person,
             size: size * 0.6,
-            color: theme.colorScheme.onPrimary.withValues(alpha: 0.9),
+            color: context.colorScheme.onPrimary.withValues(alpha: 0.9),
           );
         },
       ),

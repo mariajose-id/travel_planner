@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
 
 class AppDropdown<T> extends StatelessWidget {
   final T? value;
@@ -9,6 +10,7 @@ class AppDropdown<T> extends StatelessWidget {
   final IconData? icon;
   final double borderRadius;
   final bool enabled;
+
   const AppDropdown({
     super.key,
     required this.value,
@@ -20,62 +22,63 @@ class AppDropdown<T> extends StatelessWidget {
     this.borderRadius = 16,
     this.enabled = true,
   });
+
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    const primaryRose = Color(0xFFE91E63);
-    const lightRose = Color(0xFFFCE4EC);
-    const softPink = Color(0xFFF8BBD0);
-
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: icon != null ? 8 : 16,
-        vertical: icon != null ? 0 : 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
-        color: icon != null
-            ? Colors.transparent
-            : (theme.brightness == Brightness.dark
-                  ? const Color(0xFF2A2A3E)
-                  : softPink.withValues(alpha: 0.2)),
-        borderRadius: BorderRadius.circular(borderRadius),
-        border: icon != null
-            ? null
-            : Border.all(
-                color: theme.brightness == Brightness.dark
-                    ? primaryRose.withValues(alpha: 0.3)
-                    : lightRose.withValues(alpha: 0.5),
-              ),
-      ),
-      child: DropdownButton<T>(
-        value: value,
-        underline: const SizedBox(),
-        icon: Icon(
-          icon ?? Icons.keyboard_arrow_down,
-          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-          size: icon != null ? 20 : 24,
+        color: context.colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.3,
         ),
-        hint: icon != null ? const SizedBox.shrink() : null,
-        style: theme.textTheme.labelMedium?.copyWith(
-          color: theme.colorScheme.onSurface,
-          fontWeight: FontWeight.w500,
-        ),
-        dropdownColor: theme.brightness == Brightness.dark
-            ? const Color(0xFF2A2A3E)
-            : Colors.white,
-        menuMaxHeight: 200,
         borderRadius: BorderRadius.circular(12),
-        items: items.map((item) {
-          return DropdownMenuItem<T>(
-            value: item.value,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-              child: item.child,
-            ),
-          );
-        }).toList(),
-        onChanged: enabled ? onChanged : null,
+        border: Border.all(
+          color: context.colorScheme.onSurface.withValues(alpha: 0.1),
+        ),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<T>(
+          value: value,
+          icon: Icon(
+            icon ?? Icons.unfold_more_rounded,
+            color: context.colorScheme.onSurface.withValues(alpha: 0.6),
+            size: 18,
+          ),
+          hint: label != null
+              ? Text(
+                  label!,
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: context.colorScheme.onSurface.withValues(alpha: 0.5),
+                  ),
+                )
+              : null,
+          style: context.textTheme.bodyMedium?.copyWith(
+            color: context.colorScheme.onSurface,
+            fontWeight: FontWeight.w600,
+          ),
+          dropdownColor: context.colorScheme.surface,
+          menuMaxHeight: 350,
+          borderRadius: BorderRadius.circular(16),
+          elevation: 12,
+          selectedItemBuilder: (context) {
+            return items.map((item) {
+              return Container(
+                alignment: Alignment.centerLeft,
+                child: DefaultTextStyle(
+                  style: context.textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: context.colorScheme.onSurface,
+                  ),
+                  child: item.child is Text
+                      ? Text((item.child as Text).data!)
+                      : item.child,
+                ),
+              );
+            }).toList();
+          },
+          items: items,
+          onChanged: enabled ? onChanged : null,
+        ),
       ),
     );
   }

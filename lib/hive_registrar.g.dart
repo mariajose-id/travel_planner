@@ -2,7 +2,7 @@
 // Do not modify
 // Check in to version control
 
-import 'package:hive_ce/hive_ce.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:travel_planner/features/auth/data/models/user_model.dart';
 import 'package:travel_planner/features/trips/data/models/trip_model.dart';
 

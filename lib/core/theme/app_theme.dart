@@ -1,73 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTheme {
-  static const Color primaryRose = Color(0xFFE91E63);
-  static const Color lightRose = Color(0xFFFCE4EC);
-  static const Color darkRose = Color(0xFFAD1457);
-  static const Color accentRed = Color(0xFFFF5252);
-  static const Color deepRed = Color(0xFFC62828);
-  static const Color softPink = Color(0xFFF8BBD0);
-  static const Color backgroundLight = Color(0xFFFFF5F5);
-  static const Color backgroundDark = Color(0xFF1A1A2E);
+  static const Color primary = Color(0xFF3D2B1F);
+  static const Color primaryLight = Color(0xFFD4AF37);
+  static const Color surfaceLight = Color(0xFFF5F2F0);
+  static const Color surface = Color(0xFF211A16);
+  static const Color secondary = Color(0xFFD4AF37);
+  static const Color secondaryDark = Color(0xFFA67C00);
+  static const Color error = Color(0xFFD32F2F);
+  static const Color background = Color(0xFFFDFBF7);
+  static const Color backgroundDark = Color(0xFF141210);
+
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryRose,
+        seedColor: primary,
         brightness: Brightness.light,
-        primary: primaryRose,
-        secondary: accentRed,
+        primary: primary,
+        secondary: secondary,
         surface: Colors.white,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: const Color(0xFF1A1A2E),
-        error: deepRed,
+        error: error,
       ),
-      scaffoldBackgroundColor: backgroundLight,
+      scaffoldBackgroundColor: background,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         titleTextStyle: TextStyle(
-          color: Colors.white,
+          color: primary,
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
-        iconTheme: IconThemeData(color: Colors.white, size: 24),
+        iconTheme: IconThemeData(color: primary, size: 24),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryRose,
+          backgroundColor: secondary,
           foregroundColor: Colors.white,
           elevation: 8,
-          shadowColor: primaryRose.withValues(alpha: 0.3),
+          shadowColor: secondary.withValues(alpha: 0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: softPink.withValues(alpha: 0.3),
+        fillColor: surfaceLight.withValues(alpha: 0.5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: lightRose.withValues(alpha: 0.5)),
+          borderSide: const BorderSide(color: Color(0x1F1A1A2E)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: lightRose.withValues(alpha: 0.5)),
+          borderSide: const BorderSide(color: Color(0x1F1A1A2E)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: primaryRose, width: 2),
+          borderSide: const BorderSide(color: primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: deepRed.withValues(alpha: 0.7)),
+          borderSide: BorderSide(color: error.withValues(alpha: 0.7)),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -75,14 +79,14 @@ class AppTheme {
         ),
         hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 16),
         labelStyle: const TextStyle(
-          color: primaryRose,
+          color: primary,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
       ),
       cardTheme: CardThemeData(
         elevation: 4,
-        shadowColor: primaryRose.withValues(alpha: 0.2),
+        shadowColor: primary.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: Colors.white,
       ),
@@ -100,22 +104,23 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryRose,
+        seedColor: primary,
         brightness: Brightness.dark,
-        primary: primaryRose,
-        secondary: accentRed,
-        surface: backgroundDark,
+        primary: primaryLight,
+        secondary: secondary,
+        surface: surface,
         onPrimary: Colors.white,
         onSecondary: Colors.white,
         onSurface: Colors.white,
-        error: deepRed,
+        error: error,
       ),
-      scaffoldBackgroundColor: backgroundDark,
+      scaffoldBackgroundColor: surface,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         titleTextStyle: TextStyle(
           color: Colors.white,
           fontSize: 20,
@@ -125,10 +130,10 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primaryRose,
+          backgroundColor: secondary,
           foregroundColor: Colors.white,
           elevation: 8,
-          shadowColor: primaryRose.withValues(alpha: 0.3),
+          shadowColor: secondary.withValues(alpha: 0.4),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -138,22 +143,22 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: darkRose.withValues(alpha: 0.2),
+        fillColor: surface.withValues(alpha: 0.5),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: primaryRose.withValues(alpha: 0.3)),
+          borderSide: const BorderSide(color: Color(0x1FFFFFFF)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: primaryRose.withValues(alpha: 0.3)),
+          borderSide: const BorderSide(color: Color(0x1FFFFFFF)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: primaryRose, width: 2),
+          borderSide: const BorderSide(color: secondary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: deepRed.withValues(alpha: 0.7)),
+          borderSide: BorderSide(color: error.withValues(alpha: 0.7)),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
@@ -161,16 +166,28 @@ class AppTheme {
         ),
         hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 16),
         labelStyle: const TextStyle(
-          color: lightRose,
+          color: secondary,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
       ),
       cardTheme: CardThemeData(
         elevation: 4,
-        shadowColor: primaryRose.withValues(alpha: 0.2),
+        shadowColor: Colors.black.withValues(alpha: 0.2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: const Color(0xFF2A2A3E),
+        color: surface,
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return secondary;
+          return null;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return secondary.withValues(alpha: 0.5);
+          }
+          return null;
+        }),
       ),
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
