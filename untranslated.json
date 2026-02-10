@@ -1,19 +1,12 @@
 {
   "es": [
-    "personalInformation",
-    "email",
-    "name",
-    "enterName",
-    "editProfile",
-    "save"
+    "error_email_exists",
+    "error_user_not_found"
   ],
 
   "id": [
-    "personalInformation",
-    "email",
-    "name",
-    "enterName",
-    "editProfile",
-    "save"
+    "error_email_exists",
+    "error_user_not_found",
+    "label_currency_converter"
   ]
 }

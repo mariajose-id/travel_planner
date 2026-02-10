@@ -31,7 +31,7 @@ class AppErrorState extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              title ?? context.l10n.somethingWentWrong,
+              title ?? context.l10n.error_something_went_wrong,
               textAlign: TextAlign.center,
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class AppErrorState extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh_rounded),
-                label: Text(context.l10n.retry),
+                label: Text(context.l10n.action_retry),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: context.colorScheme.primaryContainer,
                   foregroundColor: context.colorScheme.onPrimaryContainer,

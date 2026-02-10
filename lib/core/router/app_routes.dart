@@ -2,9 +2,14 @@ class AppRoutes {
   AppRoutes._();
 
   static const String home = 'home';
-  static const String explore = 'explore';
   static const String trips = 'trips';
-  static const String saved = 'saved';
+  static const String lists = 'lists';
+  static const String tripLists = 'trip-lists';
+
+  static const String listsPath = '/lists';
+  static const String tripListsPath = '/lists/:id';
+
+  static String buildTripListsPath(String id) => '/lists/$id';
   static const String tripDetail = 'trip-detail';
   static const String profile = 'profile';
   static const String settings = 'settings';
@@ -15,7 +20,6 @@ class AppRoutes {
   static const String privacy = 'privacy';
 
   static const String homePath = '/home';
-  static const String explorePath = '/explore';
   static const String tripsPath = '/trips';
   static const String savedPath = '/saved';
   static const String tripDetailPath = '/trips/:id';

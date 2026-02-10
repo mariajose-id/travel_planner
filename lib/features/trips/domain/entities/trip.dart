@@ -87,4 +87,12 @@ class Trip {
   @override
   String toString() =>
       'Trip(id: $id, title: $title, destination: $destination, status: $status)';
+
+  /// Domain-level validation for trip dates.
+  /// Returns null if valid, or a localization key for the error.
+  static String? validateDates(DateTime? start, DateTime? end) {
+    if (start == null || end == null) return 'toast_selectBothDates';
+    if (end.isBefore(start)) return 'toast_endDateAfterStart';
+    return null;
+  }
 }

@@ -1,7 +1,8 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
 import 'package:travel_planner/core/router/app_routes.dart';
-import 'package:travel_planner/generated/l10n/app_localizations.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.child});
@@ -11,6 +12,7 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: child,
       bottomNavigationBar: const _BottomNavigationBar(),
     );
@@ -24,51 +26,51 @@ class _BottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
     final currentIndex = _calculateSelectedIndex(location);
-    final theme = Theme.of(context);
-    final loc = AppLocalizations.of(context);
 
     return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 20,
-            offset: const Offset(0, -5),
-          ),
-        ],
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _NavBarItem(
-                icon: Icons.home_rounded,
-                label: loc.nav_home,
-                isSelected: currentIndex == 0,
-                onTap: () => _onItemTapped(context, 0),
-              ),
-              _NavBarItem(
-                icon: Icons.settings_rounded,
-                label: loc.settings,
-                isSelected: currentIndex == 1,
-                onTap: () => _onItemTapped(context, 1),
-              ),
-              _NavBarItem(
-                icon: Icons.flight_takeoff_rounded,
-                label: loc.nav_trips,
-                isSelected: currentIndex == 2,
-                onTap: () => _onItemTapped(context, 2),
-              ),
-              _NavBarItem(
-                icon: Icons.bookmark_rounded,
-                label: loc.nav_saved,
-                isSelected: currentIndex == 3,
-                onTap: () => _onItemTapped(context, 3),
-              ),
-            ],
+      margin: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
+      height: 64,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(32),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          child: Container(
+            decoration: BoxDecoration(
+              color: context.colorScheme.surface.withValues(alpha: 0.45),
+              borderRadius: BorderRadius.circular(32),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.08),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _NavBarItem(
+                  icon: Icons.home_rounded,
+                  isSelected: currentIndex == 0,
+                  onTap: () => _onItemTapped(context, 0),
+                ),
+                _NavBarItem(
+                  icon: Icons.public_rounded,
+                  isSelected: currentIndex == 2,
+                  onTap: () => _onItemTapped(context, 2),
+                ),
+                _NavBarItem(
+                  icon: Icons.checklist_rounded,
+                  isSelected: currentIndex == 3,
+                  onTap: () => _onItemTapped(context, 3),
+                ),
+                _NavBarItem(
+                  icon: Icons.settings_rounded,
+                  isSelected: currentIndex == 1,
+                  onTap: () => _onItemTapped(context, 1),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -81,7 +83,7 @@ class _BottomNavigationBar extends StatelessWidget {
       return 1;
     }
     if (location.startsWith('/trips')) return 2;
-    if (location.startsWith('/saved')) return 3;
+    if (location.startsWith('/lists')) return 3;
     return 0;
   }
 
@@ -97,7 +99,7 @@ class _BottomNavigationBar extends StatelessWidget {
         context.goNamed(AppRoutes.trips);
         break;
       case 3:
-        context.goNamed(AppRoutes.saved);
+        context.goNamed(AppRoutes.lists);
         break;
     }
   }
@@ -105,13 +107,11 @@ class _BottomNavigationBar extends StatelessWidget {
 
 class _NavBarItem extends StatefulWidget {
   final IconData icon;
-  final String label;
   final bool isSelected;
   final VoidCallback onTap;
 
   const _NavBarItem({
     required this.icon,
-    required this.label,
     required this.isSelected,
     required this.onTap,
   });
@@ -146,10 +146,8 @@ class _NavBarItemState extends State<_NavBarItem>
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final color = widget.isSelected
-        ? theme.colorScheme.primary
-        : theme.colorScheme.onSurface.withValues(alpha: 0.5);
+    final activeColor = context.colorScheme.primary;
+    final inactiveColor = context.colorScheme.onSurface.withValues(alpha: 0.4);
 
     return GestureDetector(
       onTapDown: (_) => _controller.forward(),
@@ -161,41 +159,37 @@ class _NavBarItemState extends State<_NavBarItem>
       behavior: HitTestBehavior.opaque,
       child: ScaleTransition(
         scale: _scaleAnimation,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeInOutCubic,
-          padding: EdgeInsets.symmetric(
-            horizontal: widget.isSelected ? 16 : 12,
-            vertical: 8,
-          ),
-          decoration: BoxDecoration(
-            color: widget.isSelected
-                ? theme.colorScheme.primary.withValues(alpha: 0.12)
-                : Colors.transparent,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                widget.icon,
-                color: color,
-                size: widget.isSelected ? 26 : 24,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeOutCubic,
+              width: widget.isSelected ? 48 : 0,
+              height: 48,
+              decoration: BoxDecoration(
+                color: activeColor.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(16),
               ),
-              const SizedBox(height: 4),
-              Text(
-                widget.label,
-                style: TextStyle(
-                  color: color,
-                  fontWeight: widget.isSelected
-                      ? FontWeight.w600
-                      : FontWeight.w500,
-                  fontSize: 11,
-                  letterSpacing: 0.2,
+            ),
+            Icon(
+              widget.icon,
+              color: widget.isSelected ? activeColor : inactiveColor,
+              size: 26,
+            ),
+            if (widget.isSelected)
+              Positioned(
+                bottom: 6,
+                child: Container(
+                  width: 4,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: activeColor,
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
-            ],
-          ),
+          ],
         ),
       ),
     );

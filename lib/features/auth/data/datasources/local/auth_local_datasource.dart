@@ -13,6 +13,7 @@ abstract class AuthLocalDataSource {
   Future<void> updateUserPassword(String email, String password);
   bool hasCurrentSession();
   bool isLoggedIn();
+  Future<void> deleteUser(String email);
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
@@ -26,14 +27,8 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     try {
       final userModel = UserModel.fromDomain(user, password: password);
       await _usersBox.put(user.id, userModel);
-
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).info('User saved with ID: ${user.id}');
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).severe('Failed to save user: $e');
+      AppLogger.error('Failed to save user: $e', tag: 'AuthLocalDataSource');
     }
   }
 
@@ -53,9 +48,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       }
       return null;
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).severe('Failed to get user by email: $e');
+      AppLogger.error(
+        'Failed to get user by email: $e',
+        tag: 'AuthLocalDataSource',
+      );
     }
     return null;
   }
@@ -69,9 +65,10 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       final castedData = (userData as Map).cast<String, dynamic>();
       return User.fromMap(castedData);
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).severe('Failed to get current user: $e');
+      AppLogger.error(
+        'Failed to get current user: $e',
+        tag: 'AuthLocalDataSource',
+      );
       return null;
     }
   }
@@ -79,17 +76,11 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   @override
   Future<void> saveCurrentSession(User user) async {
     try {
-      _authBox.put('user', user.toMap());
-      _authBox.put('isLoggedIn', true);
-      _authBox.put('lastLogin', DateTime.now().toIso8601String());
-
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).info('Session saved for user: ${user.id}');
+      await _authBox.put('user', user.toMap());
+      await _authBox.put('isLoggedIn', true);
+      await _authBox.put('lastLogin', DateTime.now().toIso8601String());
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).severe('Failed to save session: $e');
+      AppLogger.error('Failed to save session: $e', tag: 'AuthLocalDataSource');
     }
   }
 
@@ -97,11 +88,12 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   Future<void> clearCurrentSession() async {
     try {
       await _authBox.clear();
-      AppLogger.getLogger('AuthLocalDataSource').info('Session cleared');
+      AppLogger.data('Auth session cleared');
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).severe('Failed to clear current session: $e');
+      AppLogger.error(
+        'Failed to clear current session: $e',
+        tag: 'AuthLocalDataSource',
+      );
     }
   }
 
@@ -123,15 +115,9 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
         if (currentUser?.id == user.id) {
           await saveCurrentSession(user);
         }
-
-        AppLogger.getLogger(
-          'AuthLocalDataSource',
-        ).info('User updated: ${user.id}');
       }
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).severe('Failed to update user: $e');
+      AppLogger.error('Failed to update user: $e', tag: 'AuthLocalDataSource');
     }
   }
 
@@ -151,34 +137,51 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
       if (targetUser != null) {
         targetUser.password = password;
         await targetUser.save();
-
-        AppLogger.getLogger(
-          'AuthLocalDataSource',
-        ).info('Password updated for User ID: ${targetUser.id}');
       }
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).severe('Failed to update password: $e');
+      AppLogger.error(
+        'Failed to update password: $e',
+        tag: 'AuthLocalDataSource',
+      );
     }
   }
 
   @override
   bool hasCurrentSession() {
     try {
-      final isLoggedIn =
-          _authBox.get('isLoggedIn', defaultValue: false) as bool;
-      return isLoggedIn;
+      return _authBox.get('isLoggedIn', defaultValue: false) as bool;
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthLocalDataSource',
-      ).warning('Failed to check session: $e');
+      AppLogger.warning(
+        'Failed to check session: $e',
+        tag: 'AuthLocalDataSource',
+      );
       return false;
     }
   }
 
   @override
-  bool isLoggedIn() {
-    return hasCurrentSession();
+  bool isLoggedIn() => hasCurrentSession();
+
+  @override
+  Future<void> deleteUser(String email) async {
+    try {
+      final normalizedEmail = email.toLowerCase().trim();
+
+      String? userIdToDelete;
+      for (final userModel in _usersBox.values) {
+        if (userModel.email.toLowerCase().trim() == normalizedEmail) {
+          userIdToDelete = userModel.id;
+          break;
+        }
+      }
+
+      if (userIdToDelete != null) {
+        await _usersBox.delete(userIdToDelete);
+        AppLogger.data('User deleted from local storage: $userIdToDelete');
+      }
+    } catch (e) {
+      AppLogger.error('Failed to delete user: $e', tag: 'AuthLocalDataSource');
+      rethrow;
+    }
   }
 }

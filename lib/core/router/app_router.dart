@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:travel_planner/core/router/app_routes.dart';
 import 'package:travel_planner/shared/widgets/navigation/app_shell.dart';
-import 'package:travel_planner/features/auth/presentation/screens/sign_in_screen.dart';
-import 'package:travel_planner/features/auth/presentation/screens/sign_up_screen.dart';
+import 'package:travel_planner/features/splash/presentation/screens/splash_screen.dart';
+import 'package:travel_planner/features/auth/presentation/screens/auth_screen.dart';
 import 'package:travel_planner/features/home/presentation/screens/home_screen.dart';
-import 'package:travel_planner/features/auth/presentation/providers/auth_provider.dart';
+import 'package:travel_planner/features/auth/presentation/providers/auth_notifier.dart';
 import 'package:travel_planner/features/settings/screens/settings_screen.dart';
 import 'package:travel_planner/features/trips/presentation/screens/trips_screen.dart';
 import 'package:travel_planner/features/trips/presentation/screens/trip_detail_screen.dart';
-import 'package:travel_planner/features/saved/screens/saved_screen.dart';
+
+import 'package:travel_planner/features/trip_lists/presentation/screens/trip_lists_screen.dart';
+import 'package:travel_planner/features/trip_lists/presentation/screens/trip_notes_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -38,116 +40,131 @@ CustomTransitionPage buildPageTransition<T>({
   );
 }
 
-final appRouter = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  initialLocation: AppRoutes.authPath,
-  redirect: (context, state) {
-    final authProvider = context.read<AuthProvider>();
-    final isLoggedIn = authProvider.isAuthenticated;
+final routerProvider = Provider<GoRouter>((ref) {
+  final authState = ref.watch(authNotifierProvider);
 
-    if (!isLoggedIn && !state.uri.toString().startsWith('/auth')) {
-      return AppRoutes.authPath;
-    }
+  return GoRouter(
+    navigatorKey: _rootNavigatorKey,
+    initialLocation: '/splash',
+    redirect: (context, state) {
+      // If still loading auth state, don't redirect yet (or show splash)
+      if (authState.isLoading) return null;
 
-    if (isLoggedIn && state.uri.toString().startsWith('/auth')) {
-      return AppRoutes.homePath;
-    }
+      final isLoggedIn = authState.value != null;
 
-    return null;
-  },
-  routes: [
-    GoRoute(
-      name: AppRoutes.auth,
-      path: AppRoutes.authPath,
-      pageBuilder: (context, state) => buildPageTransition(
-        context: context,
-        state: state,
-        child: const SignInScreen(),
-      ),
-    ),
-    GoRoute(
-      name: AppRoutes.signIn,
-      path: AppRoutes.signInPath,
-      pageBuilder: (context, state) => buildPageTransition(
-        context: context,
-        state: state,
-        child: const SignInScreen(),
-      ),
-    ),
-    GoRoute(
-      name: AppRoutes.signUp,
-      path: AppRoutes.signUpPath,
-      pageBuilder: (context, state) => buildPageTransition(
-        context: context,
-        state: state,
-        child: const SignUpScreen(),
-      ),
-    ),
-    ShellRoute(
-      navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) => AppShell(child: child),
-      routes: [
-        GoRoute(
-          name: AppRoutes.home,
-          path: AppRoutes.homePath,
-          pageBuilder: (context, state) => buildPageTransition(
-            context: context,
-            state: state,
-            child: const HomeScreen(),
-          ),
+      // Allow splash screen to be accessible
+      if (state.uri.toString() == '/splash') return null;
+
+      if (!isLoggedIn && !state.uri.toString().startsWith('/auth')) {
+        return AppRoutes.authPath;
+      }
+
+      if (isLoggedIn && state.uri.toString().startsWith('/auth')) {
+        return AppRoutes.homePath;
+      }
+
+      return null;
+    },
+    routes: [
+      GoRoute(
+        name: 'splash',
+        path: '/splash',
+        pageBuilder: (context, state) => buildPageTransition(
+          context: context,
+          state: state,
+          child: const SplashScreen(),
         ),
-        GoRoute(
-          name: AppRoutes.trips,
-          path: AppRoutes.tripsPath,
-          pageBuilder: (context, state) => buildPageTransition(
-            context: context,
-            state: state,
-            child: const TripsScreen(),
-          ),
-          routes: [
-            GoRoute(
-              name: AppRoutes.tripDetail,
-              path: ':id',
-              parentNavigatorKey: _rootNavigatorKey,
-              pageBuilder: (context, state) {
-                final tripId = state.pathParameters['id']!;
-                return buildPageTransition(
-                  context: context,
-                  state: state,
-                  child: TripDetailScreen(tripId: tripId),
-                );
-              },
+      ),
+      GoRoute(
+        name: AppRoutes.auth,
+        path: AppRoutes.authPath,
+        pageBuilder: (context, state) => buildPageTransition(
+          context: context,
+          state: state,
+          child: const AuthScreen(),
+        ),
+      ),
+      ShellRoute(
+        navigatorKey: _shellNavigatorKey,
+        builder: (context, state, child) => AppShell(child: child),
+        routes: [
+          GoRoute(
+            name: AppRoutes.home,
+            path: AppRoutes.homePath,
+            pageBuilder: (context, state) => buildPageTransition(
+              context: context,
+              state: state,
+              child: const HomeScreen(),
             ),
-          ],
-        ),
-        GoRoute(
-          name: AppRoutes.saved,
-          path: AppRoutes.savedPath,
-          pageBuilder: (context, state) => buildPageTransition(
-            context: context,
-            state: state,
-            child: const SavedScreen(),
           ),
-        ),
-        GoRoute(
-          name: AppRoutes.settings,
-          path: AppRoutes.settingsPath,
-          pageBuilder: (context, state) => buildPageTransition(
-            context: context,
-            state: state,
-            child: const SettingsScreen(),
+          GoRoute(
+            name: AppRoutes.trips,
+            path: AppRoutes.tripsPath,
+            pageBuilder: (context, state) => buildPageTransition(
+              context: context,
+              state: state,
+              child: const TripsScreen(),
+            ),
+            routes: [
+              GoRoute(
+                name: AppRoutes.tripDetail,
+                path: ':id',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) {
+                  final tripId = state.pathParameters['id']!;
+                  return buildPageTransition(
+                    context: context,
+                    state: state,
+                    child: TripDetailScreen(tripId: tripId),
+                  );
+                },
+              ),
+            ],
           ),
-        ),
-        GoRoute(
-          name: AppRoutes.profile,
-          path: AppRoutes.profilePath,
-          pageBuilder: (context, state) => buildPageTransition(
-            context: context,
-            state: state,
-            child: const SettingsScreen(),
+          GoRoute(
+            name: AppRoutes.lists,
+            path: AppRoutes.listsPath,
+            pageBuilder: (context, state) => buildPageTransition(
+              context: context,
+              state: state,
+              child: const TripListsScreen(),
+            ),
+            routes: [
+              GoRoute(
+                name: AppRoutes.tripLists,
+                path: ':id',
+                parentNavigatorKey: _rootNavigatorKey,
+                pageBuilder: (context, state) {
+                  final tripId = state.pathParameters['id']!;
+                  return buildPageTransition(
+                    context: context,
+                    state: state,
+                    child: TripNotesScreen(tripId: tripId),
+                  );
+                },
+              ),
+            ],
           ),
-        ),
-      ],
-    ),
-  ],
-);
+          GoRoute(
+            name: AppRoutes.settings,
+            path: AppRoutes.settingsPath,
+            pageBuilder: (context, state) => buildPageTransition(
+              context: context,
+              state: state,
+              child: const SettingsScreen(),
+            ),
+          ),
+          GoRoute(
+            name: AppRoutes.profile,
+            path: AppRoutes.profilePath,
+            pageBuilder: (context, state) => buildPageTransition(
+              context: context,
+              state: state,
+              child: const SettingsScreen(),
+            ),
+          ),
+        ],
+      ),
+    ],
+  );
+});

@@ -16,10 +16,10 @@ class TripRepositoryImpl implements TripRepository {
       final tripModel = TripModel.fromDomain(trip, userId);
       await _tripsBox.put(trip.id, tripModel);
 
-      AppLogger.getLogger('TripRepository').info('Trip created: ${trip.id}');
+      AppLogger.data('Trip created: ${trip.id}');
       return Result.success(trip);
     } catch (e) {
-      AppLogger.getLogger('TripRepository').severe('Failed to create trip: $e');
+      AppLogger.error('Failed to create trip: $e', tag: 'TripRepository');
       return Result.failure(
         DataError('Failed to create trip: $e', 'CREATE_TRIP_FAILED'),
       );
@@ -30,24 +30,17 @@ class TripRepositoryImpl implements TripRepository {
   Future<Result<List<Trip>>> getAllTrips(String userId) async {
     try {
       final allTrips = _tripsBox.values.toList();
-      AppLogger.getLogger('TripRepository').info('=== TRIP FILTER DEBUG ===');
-      AppLogger.getLogger('TripRepository').info('Requesting trips for userId: $userId');
-      AppLogger.getLogger('TripRepository').info('Total trips in database: ${allTrips.length}');
-      
       final trips = allTrips
           .where((model) => model.userId == userId)
           .map((model) => model.toDomain())
           .toList();
-      
-      AppLogger.getLogger('TripRepository').info('Filtered trips for user $userId: ${trips.length}');
-      for (final trip in trips) {
-        AppLogger.getLogger('TripRepository').info('  - Trip ID: ${trip.id}, Title: ${trip.title}');
-      }
-      AppLogger.getLogger('TripRepository').info('===========================');
-      
+      AppLogger.data(
+        'Filtered trips for user $userId: ${trips.length}',
+        tag: 'TripRepository',
+      );
       return Result.success(trips);
     } catch (e) {
-      AppLogger.getLogger('TripRepository').severe('Failed to get trips: $e');
+      AppLogger.error('Failed to get trips: $e', tag: 'TripRepository');
       return Result.failure(
         DataError('Failed to get trips: $e', 'GET_TRIPS_FAILED'),
       );
@@ -60,9 +53,7 @@ class TripRepositoryImpl implements TripRepository {
       final tripModel = _tripsBox.get(id);
       return Result.success(tripModel?.toDomain());
     } catch (e) {
-      AppLogger.getLogger(
-        'TripRepository',
-      ).severe('Failed to get trip by id: $id');
+      AppLogger.error('Failed to get trip by id: $id', tag: 'TripRepository');
       return Result.failure(
         DataError('Failed to get trip: $e', 'GET_TRIP_BY_ID_FAILED'),
       );
@@ -80,10 +71,10 @@ class TripRepositoryImpl implements TripRepository {
 
       await _tripsBox.put(trip.id, TripModel.fromDomain(trip, trip.userId));
 
-      AppLogger.getLogger('TripRepository').info('Trip updated: ${trip.id}');
+      AppLogger.data('Trip updated: ${trip.id}');
       return Result.success(null);
     } catch (e) {
-      AppLogger.getLogger('TripRepository').severe('Failed to update trip: $e');
+      AppLogger.error('Failed to update trip: $e', tag: 'TripRepository');
       return Result.failure(
         DataError('Failed to update trip: $e', 'UPDATE_TRIP_FAILED'),
       );
@@ -94,10 +85,10 @@ class TripRepositoryImpl implements TripRepository {
   Future<Result<void>> deleteTrip(String id) async {
     try {
       await _tripsBox.delete(id);
-      AppLogger.getLogger('TripRepository').info('Trip deleted: $id');
+      AppLogger.data('Trip deleted: $id');
       return Result.success(null);
     } catch (e) {
-      AppLogger.getLogger('TripRepository').severe('Failed to delete trip: $e');
+      AppLogger.error('Failed to delete trip: $e', tag: 'TripRepository');
       return Result.failure(
         DataError('Failed to delete trip: $e', 'DELETE_TRIP_FAILED'),
       );
@@ -132,9 +123,7 @@ class TripRepositoryImpl implements TripRepository {
 
       return Result.success(trips);
     } catch (e) {
-      AppLogger.getLogger(
-        'TripRepository',
-      ).severe('Failed to search trips: $e');
+      AppLogger.error('Failed to search trips: $e', tag: 'TripRepository');
       return Result.failure(
         DataError('Failed to search trips: $e', 'SEARCH_TRIPS_FAILED'),
       );
@@ -155,9 +144,10 @@ class TripRepositoryImpl implements TripRepository {
           .toList();
       return Result.success(filteredTrips);
     } catch (e) {
-      AppLogger.getLogger(
-        'TripRepository',
-      ).severe('Failed to get trips by status: $e');
+      AppLogger.error(
+        'Failed to get trips by status: $e',
+        tag: 'TripRepository',
+      );
       return Result.failure(
         DataError(
           'Failed to get trips by status: $e',
@@ -184,9 +174,10 @@ class TripRepositoryImpl implements TripRepository {
 
       return Result.success(filteredTrips);
     } catch (e) {
-      AppLogger.getLogger(
-        'TripRepository',
-      ).severe('Failed to get trips by date range: $e');
+      AppLogger.error(
+        'Failed to get trips by date range: $e',
+        tag: 'TripRepository',
+      );
       return Result.failure(
         DataError(
           'Failed to get trips by date range: $e',
@@ -194,9 +185,5 @@ class TripRepositoryImpl implements TripRepository {
         ),
       );
     }
-  }
-
-  Future<void> initialize() async {
-    AppLogger.getLogger('TripRepository').info('TripRepository initialized');
   }
 }

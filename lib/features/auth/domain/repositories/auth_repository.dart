@@ -7,19 +7,29 @@ abstract class AuthRepository {
     required String password,
     required String name,
   });
+
   Future<Result<User>> signIn({
     required String email,
     required String password,
   });
+
   Future<Result<User>> getCurrentUser();
+
   Future<Result<void>> signOut();
+
   Future<Result<User>> updateProfile({
     required String name,
     required String email,
   });
+
   Future<Result<void>> changePassword({
     required String currentPassword,
     required String newPassword,
   });
+
+  Future<Result<void>> deleteAccount();
+
+  Future<Result<User>> updateAvatar({required String? avatarUrl});
+
   bool isLoggedIn();
 }

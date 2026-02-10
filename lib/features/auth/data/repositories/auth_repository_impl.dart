@@ -19,9 +19,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     try {
       final normalizedEmail = email.toLowerCase().trim();
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).info('Starting sign up for email: $normalizedEmail');
+      AppLogger.data(
+        'Starting sign up for email: $normalizedEmail, pw: $password',
+      );
 
       final existingUser = await _localDataSource.getUserByEmail(
         normalizedEmail,
@@ -46,12 +46,9 @@ class AuthRepositoryImpl implements AuthRepository {
       await _localDataSource.saveUser(user, password);
       await _localDataSource.saveCurrentSession(user);
 
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).info('Sign up successful for user: ${user.id}');
       return Result.success(user);
     } catch (e) {
-      AppLogger.getLogger('AuthRepositoryImpl').severe('Sign up failed: $e');
+      AppLogger.error('Sign up failed: $e', tag: 'AuthRepositoryImpl');
       return Result.failure(
         AuthenticationError('Failed to sign up', e.toString()),
       );
@@ -65,9 +62,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }) async {
     try {
       final normalizedEmail = email.toLowerCase().trim();
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).info('Starting sign in for email: $normalizedEmail');
+      AppLogger.data(
+        'Starting sign in for email: $normalizedEmail, pw: $password',
+      );
 
       final userData = await _localDataSource.getUserByEmail(normalizedEmail);
       if (userData == null) {
@@ -90,12 +87,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
       await _localDataSource.saveCurrentSession(user);
 
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).info('Sign in successful for user: ${user.id}');
       return Result.success(user);
     } catch (e) {
-      AppLogger.getLogger('AuthRepositoryImpl').severe('Sign in failed: $e');
+      AppLogger.error('Sign in failed: $e', tag: 'AuthRepositoryImpl');
       return Result.failure(
         AuthenticationError('Failed to sign in', e.toString()),
       );
@@ -113,9 +107,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
       return Result.success(user);
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).severe('Get current user failed: $e');
+      AppLogger.error('Get current user failed: $e', tag: 'AuthRepositoryImpl');
       return Result.failure(
         AuthenticationError('Failed to get current user', e.toString()),
       );
@@ -128,7 +120,7 @@ class AuthRepositoryImpl implements AuthRepository {
       await _localDataSource.clearCurrentSession();
       return Result.success(null);
     } catch (e) {
-      AppLogger.getLogger('AuthRepositoryImpl').severe('Sign out failed: $e');
+      AppLogger.error('Sign out failed: $e', tag: 'AuthRepositoryImpl');
       return Result.failure(
         AuthenticationError('Failed to sign out', e.toString()),
       );
@@ -157,14 +149,10 @@ class AuthRepositoryImpl implements AuthRepository {
       await _localDataSource.updateUser(updatedUser);
       await _localDataSource.saveCurrentSession(updatedUser);
 
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).info('Profile updated for user: ${updatedUser.id}');
+      AppLogger.data('Profile updated for user: ${updatedUser.id}');
       return Result.success(updatedUser);
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).severe('Update profile failed: $e');
+      AppLogger.error('Update profile failed: $e', tag: 'AuthRepositoryImpl');
       return Result.failure(
         AuthenticationError('Failed to update profile', e.toString()),
       );
@@ -203,14 +191,10 @@ class AuthRepositoryImpl implements AuthRepository {
 
       await _localDataSource.updateUserPassword(currentUser.email, newPassword);
 
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).info('Password changed for user: ${currentUser.id}');
+      AppLogger.data('Password changed for user: ${currentUser.id}');
       return Result.success(null);
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).severe('Change password failed: $e');
+      AppLogger.error('Change password failed: $e', tag: 'AuthRepositoryImpl');
       return Result.failure(
         AuthenticationError('Failed to change password', e.toString()),
       );
@@ -222,10 +206,62 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       return _localDataSource.isLoggedIn();
     } catch (e) {
-      AppLogger.getLogger(
-        'AuthRepositoryImpl',
-      ).severe('Error checking login status: $e');
+      AppLogger.error(
+        'Error checking login status: $e',
+        tag: 'AuthRepositoryImpl',
+      );
       return false;
+    }
+  }
+
+  @override
+  Future<Result<void>> deleteAccount() async {
+    try {
+      final currentUser = await _localDataSource.getCurrentUser();
+      if (currentUser == null) {
+        return Result.failure(
+          const AuthenticationError('No user logged in', 'NO_USER_LOGGED_IN'),
+        );
+      }
+
+      await _localDataSource.deleteUser(currentUser.email);
+      await _localDataSource.clearCurrentSession();
+
+      AppLogger.data('Account deleted for user: ${currentUser.id}');
+      return Result.success(null);
+    } catch (e) {
+      AppLogger.error('Delete account failed: $e', tag: 'AuthRepositoryImpl');
+      return Result.failure(
+        AuthenticationError('Failed to delete account', e.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Result<User>> updateAvatar({required String? avatarUrl}) async {
+    try {
+      final currentUser = await _localDataSource.getCurrentUser();
+      if (currentUser == null) {
+        return Result.failure(
+          const AuthenticationError('No user logged in', 'NO_USER_LOGGED_IN'),
+        );
+      }
+
+      final updatedUser = currentUser.copyWith(
+        avatarUrl: avatarUrl,
+        updatedAt: DateTime.now(),
+      );
+
+      await _localDataSource.updateUser(updatedUser);
+      await _localDataSource.saveCurrentSession(updatedUser);
+
+      AppLogger.data('Avatar updated for user: ${updatedUser.id}');
+      return Result.success(updatedUser);
+    } catch (e) {
+      AppLogger.error('Update avatar failed: $e', tag: 'AuthRepositoryImpl');
+      return Result.failure(
+        AuthenticationError('Failed to update avatar', e.toString()),
+      );
     }
   }
 }

@@ -104,433 +104,445 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Travel Planner'**
-  String get appTitle;
+  String get app_title;
 
-  /// No description provided for @auth_accountCreated.
+  /// No description provided for @toast_account_created.
   ///
   /// In en, this message translates to:
   /// **'Account created successfully'**
-  String get auth_accountCreated;
+  String get toast_account_created;
 
-  /// No description provided for @auth_email.
+  /// No description provided for @label_email.
   ///
   /// In en, this message translates to:
   /// **'Email'**
-  String get auth_email;
+  String get label_email;
 
-  /// No description provided for @auth_password.
+  /// No description provided for @label_password.
   ///
   /// In en, this message translates to:
   /// **'Password'**
-  String get auth_password;
+  String get label_password;
 
-  /// No description provided for @auth_confirmPassword.
+  /// No description provided for @label_confirm_password.
   ///
   /// In en, this message translates to:
   /// **'Confirm Password'**
-  String get auth_confirmPassword;
+  String get label_confirm_password;
 
-  /// No description provided for @home_welcome.
+  /// No description provided for @label_welcome.
   ///
   /// In en, this message translates to:
   /// **'Welcome'**
-  String get home_welcome;
+  String get label_welcome;
 
-  /// No description provided for @home_upcomingTrips.
+  /// No description provided for @heading_upcoming_trips.
   ///
   /// In en, this message translates to:
-  /// **'Upcoming Trips'**
-  String get home_upcomingTrips;
+  /// **'My Trips'**
+  String get heading_upcoming_trips;
 
-  /// No description provided for @home_recentlyViewed.
+  /// No description provided for @heading_recently_viewed.
   ///
   /// In en, this message translates to:
   /// **'Recently Viewed'**
-  String get home_recentlyViewed;
+  String get heading_recently_viewed;
 
-  /// No description provided for @errors_invalidEmail.
+  /// No description provided for @error_invalid_email.
   ///
   /// In en, this message translates to:
   /// **'Please enter a valid email address'**
-  String get errors_invalidEmail;
+  String get error_invalid_email;
 
-  /// No description provided for @errors_shortPassword.
+  /// No description provided for @error_short_password.
   ///
   /// In en, this message translates to:
   /// **'Password must be at least 6 characters'**
-  String get errors_shortPassword;
+  String get error_short_password;
 
-  /// No description provided for @errors_passwordsDontMatch.
+  /// No description provided for @error_passwords_dont_match.
   ///
   /// In en, this message translates to:
   /// **'Passwords don\'t match'**
-  String get errors_passwordsDontMatch;
+  String get error_passwords_dont_match;
 
-  /// No description provided for @errors_requiredField.
+  /// No description provided for @error_required_field.
   ///
   /// In en, this message translates to:
   /// **'This field is required'**
-  String get errors_requiredField;
+  String get error_required_field;
 
-  /// No description provided for @errors_genericError.
+  /// No description provided for @error_generic.
   ///
   /// In en, this message translates to:
   /// **'An error occurred. Please try again.'**
-  String get errors_genericError;
+  String get error_generic;
 
-  /// No description provided for @signInSubtitle.
+  /// No description provided for @error_email_exists.
+  ///
+  /// In en, this message translates to:
+  /// **'An account with this email already exists'**
+  String get error_email_exists;
+
+  /// No description provided for @error_user_not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'User not found'**
+  String get error_user_not_found;
+
+  /// No description provided for @heading_sign_in_subtitle.
   ///
   /// In en, this message translates to:
   /// **'Sign in to continue'**
-  String get signInSubtitle;
+  String get heading_sign_in_subtitle;
 
-  /// No description provided for @welcomeBack.
+  /// No description provided for @heading_welcome_back.
   ///
   /// In en, this message translates to:
   /// **'Welcome Back'**
-  String get welcomeBack;
+  String get heading_welcome_back;
 
-  /// No description provided for @createAccount.
+  /// No description provided for @heading_create_account.
   ///
   /// In en, this message translates to:
   /// **'Create Account'**
-  String get createAccount;
+  String get heading_create_account;
 
-  /// No description provided for @or.
+  /// No description provided for @label_or.
   ///
   /// In en, this message translates to:
   /// **'OR'**
-  String get or;
+  String get label_or;
 
-  /// No description provided for @alreadyHaveAccount.
+  /// No description provided for @label_already_have_account.
   ///
   /// In en, this message translates to:
   /// **'Already have account? Sign In'**
-  String get alreadyHaveAccount;
+  String get label_already_have_account;
 
-  /// No description provided for @fullName.
+  /// No description provided for @label_full_name.
   ///
   /// In en, this message translates to:
   /// **'Full Name'**
-  String get fullName;
+  String get label_full_name;
 
-  /// No description provided for @enterFullName.
+  /// No description provided for @hint_enter_full_name.
   ///
   /// In en, this message translates to:
   /// **'Enter your full name'**
-  String get enterFullName;
+  String get hint_enter_full_name;
 
-  /// No description provided for @enterEmail.
+  /// No description provided for @hint_enter_email.
   ///
   /// In en, this message translates to:
   /// **'Enter your email'**
-  String get enterEmail;
+  String get hint_enter_email;
 
-  /// No description provided for @enterPassword.
+  /// No description provided for @hint_enter_password.
   ///
   /// In en, this message translates to:
   /// **'Enter your password'**
-  String get enterPassword;
+  String get hint_enter_password;
 
-  /// No description provided for @enterConfirmPassword.
+  /// No description provided for @hint_confirm_password.
   ///
   /// In en, this message translates to:
   /// **'Confirm your password'**
-  String get enterConfirmPassword;
+  String get hint_confirm_password;
 
-  /// No description provided for @createAccountButton.
+  /// No description provided for @action_create_account.
   ///
   /// In en, this message translates to:
   /// **'Create Account'**
-  String get createAccountButton;
+  String get action_create_account;
 
-  /// No description provided for @signInButton.
+  /// No description provided for @action_sign_in.
   ///
   /// In en, this message translates to:
   /// **'Sign In'**
-  String get signInButton;
+  String get action_sign_in;
 
-  /// No description provided for @fillInDetails.
+  /// No description provided for @heading_fill_details.
   ///
   /// In en, this message translates to:
   /// **'Fill in your details to get started'**
-  String get fillInDetails;
+  String get heading_fill_details;
 
-  /// No description provided for @journeyStartsHere.
+  /// No description provided for @heading_journey_starts.
   ///
   /// In en, this message translates to:
   /// **'Your journey starts here'**
-  String get journeyStartsHere;
+  String get heading_journey_starts;
 
-  /// No description provided for @signOut.
+  /// No description provided for @action_sign_out.
   ///
   /// In en, this message translates to:
   /// **'Sign Out'**
-  String get signOut;
+  String get action_sign_out;
 
-  /// No description provided for @settings.
+  /// No description provided for @heading_settings.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
-  String get settings;
+  String get heading_settings;
 
-  /// No description provided for @appSettings.
+  /// No description provided for @heading_app_settings.
   ///
   /// In en, this message translates to:
   /// **'App Settings'**
-  String get appSettings;
+  String get heading_app_settings;
 
-  /// No description provided for @termsOfService.
+  /// No description provided for @label_terms_of_service.
   ///
   /// In en, this message translates to:
   /// **'Terms of Service'**
-  String get termsOfService;
+  String get label_terms_of_service;
 
-  /// No description provided for @privacyPolicy.
+  /// No description provided for @label_privacy_policy.
   ///
   /// In en, this message translates to:
   /// **'Privacy Policy'**
-  String get privacyPolicy;
+  String get label_privacy_policy;
 
-  /// No description provided for @contactUs.
+  /// No description provided for @label_contact_us.
   ///
   /// In en, this message translates to:
   /// **'Contact Us'**
-  String get contactUs;
+  String get label_contact_us;
 
-  /// No description provided for @cancel.
+  /// No description provided for @action_cancel.
   ///
   /// In en, this message translates to:
   /// **'Cancel'**
-  String get cancel;
+  String get action_cancel;
 
-  /// No description provided for @selectDate.
+  /// No description provided for @action_select_date.
   ///
   /// In en, this message translates to:
   /// **'Select a date'**
-  String get selectDate;
+  String get action_select_date;
 
-  /// No description provided for @explore.
+  /// No description provided for @tab_explore.
   ///
   /// In en, this message translates to:
   /// **'Explore'**
-  String get explore;
+  String get tab_explore;
 
-  /// No description provided for @favorites.
+  /// No description provided for @tab_favorites.
   ///
   /// In en, this message translates to:
   /// **'Favorites'**
-  String get favorites;
+  String get tab_favorites;
 
-  /// No description provided for @yourTrips.
+  /// No description provided for @tab_your_trips.
   ///
   /// In en, this message translates to:
   /// **'Your Trips'**
-  String get yourTrips;
+  String get tab_your_trips;
 
-  /// No description provided for @errorLoadingTrips.
+  /// No description provided for @error_loading_trips.
   ///
   /// In en, this message translates to:
   /// **'Error loading trips'**
-  String get errorLoadingTrips;
+  String get error_loading_trips;
 
-  /// No description provided for @noRecentTrips.
+  /// No description provided for @label_no_recent_trips.
   ///
   /// In en, this message translates to:
   /// **'No recent trips'**
-  String get noRecentTrips;
+  String get label_no_recent_trips;
 
-  /// No description provided for @startPlanning.
+  /// No description provided for @label_start_planning.
   ///
   /// In en, this message translates to:
   /// **'Start planning your next adventure'**
-  String get startPlanning;
+  String get label_start_planning;
 
-  /// No description provided for @addTrip.
+  /// No description provided for @action_add_trip.
   ///
   /// In en, this message translates to:
   /// **'Add Trip'**
-  String get addTrip;
+  String get action_add_trip;
 
-  /// No description provided for @totalTrips.
+  /// No description provided for @label_total_trips.
   ///
   /// In en, this message translates to:
   /// **'Total Trips'**
-  String get totalTrips;
+  String get label_total_trips;
 
-  /// No description provided for @totalBudget.
+  /// No description provided for @label_total_budget.
   ///
   /// In en, this message translates to:
   /// **'Total Budget'**
-  String get totalBudget;
+  String get label_total_budget;
 
-  /// No description provided for @planned.
+  /// No description provided for @label_status_planned.
   ///
   /// In en, this message translates to:
   /// **'Planned'**
-  String get planned;
+  String get label_status_planned;
 
-  /// No description provided for @ongoing.
+  /// No description provided for @label_status_ongoing.
   ///
   /// In en, this message translates to:
   /// **'Ongoing'**
-  String get ongoing;
+  String get label_status_ongoing;
 
-  /// No description provided for @completed.
+  /// No description provided for @label_status_completed.
   ///
   /// In en, this message translates to:
   /// **'Completed'**
-  String get completed;
+  String get label_status_completed;
 
-  /// No description provided for @tripDetails.
+  /// No description provided for @heading_trip_details.
   ///
   /// In en, this message translates to:
   /// **'Trip Details'**
-  String get tripDetails;
+  String get heading_trip_details;
 
-  /// No description provided for @close.
+  /// No description provided for @action_close.
   ///
   /// In en, this message translates to:
   /// **'Close'**
-  String get close;
+  String get action_close;
 
-  /// No description provided for @description.
+  /// No description provided for @label_description.
   ///
   /// In en, this message translates to:
   /// **'Description'**
-  String get description;
+  String get label_description;
 
-  /// No description provided for @enterTripDescription.
+  /// No description provided for @hint_enter_trip_description.
   ///
   /// In en, this message translates to:
   /// **'Enter trip description'**
-  String get enterTripDescription;
+  String get hint_enter_trip_description;
 
-  /// No description provided for @destination.
+  /// No description provided for @label_destination.
   ///
   /// In en, this message translates to:
   /// **'Destination'**
-  String get destination;
+  String get label_destination;
 
-  /// No description provided for @enterDestination.
+  /// No description provided for @hint_enter_destination.
   ///
   /// In en, this message translates to:
   /// **'Enter destination'**
-  String get enterDestination;
+  String get hint_enter_destination;
 
-  /// No description provided for @startDate.
+  /// No description provided for @label_start_date.
   ///
   /// In en, this message translates to:
   /// **'Start Date'**
-  String get startDate;
+  String get label_start_date;
 
-  /// No description provided for @endDate.
+  /// No description provided for @label_end_date.
   ///
   /// In en, this message translates to:
   /// **'End Date'**
-  String get endDate;
+  String get label_end_date;
 
-  /// No description provided for @budget.
+  /// No description provided for @label_budget.
   ///
   /// In en, this message translates to:
   /// **'Budget'**
-  String get budget;
+  String get label_budget;
 
-  /// No description provided for @status.
+  /// No description provided for @label_status.
   ///
   /// In en, this message translates to:
   /// **'Status'**
-  String get status;
+  String get label_status;
 
-  /// No description provided for @addNewTrip.
+  /// No description provided for @action_add_new_trip.
   ///
   /// In en, this message translates to:
   /// **'Add New Trip'**
-  String get addNewTrip;
+  String get action_add_new_trip;
 
-  /// No description provided for @editTrip.
+  /// No description provided for @heading_edit_trip.
   ///
   /// In en, this message translates to:
   /// **'Edit Trip'**
-  String get editTrip;
+  String get heading_edit_trip;
 
-  /// No description provided for @edit.
+  /// No description provided for @action_edit.
   ///
   /// In en, this message translates to:
   /// **'Edit'**
-  String get edit;
+  String get action_edit;
 
-  /// No description provided for @delete.
+  /// No description provided for @action_delete.
   ///
   /// In en, this message translates to:
   /// **'Delete'**
-  String get delete;
+  String get action_delete;
 
-  /// No description provided for @retry.
+  /// No description provided for @action_retry.
   ///
   /// In en, this message translates to:
   /// **'Retry'**
-  String get retry;
+  String get action_retry;
 
-  /// No description provided for @tripTitle.
+  /// No description provided for @label_trip_title.
   ///
   /// In en, this message translates to:
   /// **'Trip Title'**
-  String get tripTitle;
+  String get label_trip_title;
 
-  /// No description provided for @updateTrip.
+  /// No description provided for @action_update_trip.
   ///
   /// In en, this message translates to:
   /// **'Update Trip'**
-  String get updateTrip;
+  String get action_update_trip;
 
-  /// No description provided for @enterTripTitle.
+  /// No description provided for @hint_enter_trip_title.
   ///
   /// In en, this message translates to:
   /// **'Enter trip title'**
-  String get enterTripTitle;
+  String get hint_enter_trip_title;
 
-  /// No description provided for @pleaseEnterValidNumber.
+  /// No description provided for @error_invalid_number.
   ///
   /// In en, this message translates to:
   /// **'Please enter a valid number'**
-  String get pleaseEnterValidNumber;
+  String get error_invalid_number;
 
-  /// No description provided for @toast_welcomeBack.
+  /// No description provided for @toast_welcome_back.
   ///
   /// In en, this message translates to:
   /// **'Welcome back'**
-  String get toast_welcomeBack;
+  String get toast_welcome_back;
 
-  /// No description provided for @toast_invalidCredentials.
+  /// No description provided for @error_invalid_credentials.
   ///
   /// In en, this message translates to:
   /// **'Invalid email or password'**
-  String get toast_invalidCredentials;
+  String get error_invalid_credentials;
 
-  /// No description provided for @toast_tripCreated.
+  /// No description provided for @toast_trip_created.
   ///
   /// In en, this message translates to:
   /// **'Trip created successfully'**
-  String get toast_tripCreated;
+  String get toast_trip_created;
 
-  /// No description provided for @toast_tripError.
+  /// No description provided for @error_trip_generic.
   ///
   /// In en, this message translates to:
   /// **'Error: {error}'**
-  String toast_tripError(String error);
+  String error_trip_generic(String error);
 
-  /// No description provided for @toast_endDateAfterStart.
+  /// No description provided for @error_end_date_after_start.
   ///
   /// In en, this message translates to:
   /// **'End date must be after start date'**
-  String get toast_endDateAfterStart;
+  String get error_end_date_after_start;
 
-  /// No description provided for @toast_selectBothDates.
+  /// No description provided for @error_select_both_dates.
   ///
   /// In en, this message translates to:
   /// **'Please select both start and end dates'**
-  String get toast_selectBothDates;
+  String get error_select_both_dates;
 
   /// No description provided for @nav_home.
   ///
@@ -556,77 +568,77 @@ abstract class AppLocalizations {
   /// **'Saved'**
   String get nav_saved;
 
-  /// No description provided for @quickActions.
+  /// No description provided for @heading_quick_actions.
   ///
   /// In en, this message translates to:
   /// **'Quick Actions'**
-  String get quickActions;
+  String get heading_quick_actions;
 
-  /// No description provided for @viewYourTrips.
+  /// No description provided for @label_view_your_trips.
   ///
   /// In en, this message translates to:
   /// **'View your trips'**
-  String get viewYourTrips;
+  String get label_view_your_trips;
 
-  /// No description provided for @recentPlaces.
+  /// No description provided for @heading_recent_places.
   ///
   /// In en, this message translates to:
   /// **'Recent places'**
-  String get recentPlaces;
+  String get heading_recent_places;
 
-  /// No description provided for @savedPlaces.
+  /// No description provided for @heading_saved_places.
   ///
   /// In en, this message translates to:
   /// **'Saved places'**
-  String get savedPlaces;
+  String get heading_saved_places;
 
-  /// No description provided for @recentActivity.
+  /// No description provided for @heading_recent_activity.
   ///
   /// In en, this message translates to:
   /// **'Recent Activity'**
-  String get recentActivity;
+  String get heading_recent_activity;
 
-  /// No description provided for @profile.
+  /// No description provided for @heading_profile.
   ///
   /// In en, this message translates to:
   /// **'Profile'**
-  String get profile;
+  String get heading_profile;
 
-  /// No description provided for @comingSoon.
+  /// No description provided for @label_coming_soon.
   ///
   /// In en, this message translates to:
   /// **'{feature} - Coming Soon'**
-  String comingSoon(String feature);
+  String label_coming_soon(String feature);
 
-  /// No description provided for @tripStatusPlanned.
+  /// No description provided for @label_status_planned_tag.
   ///
   /// In en, this message translates to:
   /// **'Planned'**
-  String get tripStatusPlanned;
+  String get label_status_planned_tag;
 
-  /// No description provided for @tripStatusOngoing.
+  /// No description provided for @label_status_ongoing_tag.
   ///
   /// In en, this message translates to:
   /// **'Ongoing'**
-  String get tripStatusOngoing;
+  String get label_status_ongoing_tag;
 
-  /// No description provided for @tripStatusCompleted.
+  /// No description provided for @label_status_completed_tag.
   ///
   /// In en, this message translates to:
   /// **'Completed'**
-  String get tripStatusCompleted;
+  String get label_status_completed_tag;
 
-  /// No description provided for @tripStatusCancelled.
+  /// No description provided for @label_status_cancelled_tag.
   ///
   /// In en, this message translates to:
   /// **'Cancelled'**
-  String get tripStatusCancelled;
+  String get label_status_cancelled_tag;
 
-  /// No description provided for @signInWithGoogle.
+  /// No description provided for @action_sign_in_google.
   ///
   /// In en, this message translates to:
   /// **'Continue with Google'**
-  String get signInWithGoogle;
+  String get action_sign_in_google;
 
   /// No description provided for @tab_profile.
   ///
@@ -646,227 +658,449 @@ abstract class AppLocalizations {
   /// **'Account'**
   String get tab_account;
 
-  /// No description provided for @manageYourProfile.
+  /// No description provided for @label_manage_profile.
   ///
   /// In en, this message translates to:
   /// **'Manage your profile and preferences'**
-  String get manageYourProfile;
+  String get label_manage_profile;
 
-  /// No description provided for @theme.
+  /// No description provided for @label_theme.
   ///
   /// In en, this message translates to:
   /// **'Theme'**
-  String get theme;
+  String get label_theme;
 
-  /// No description provided for @chooseTheme.
+  /// No description provided for @label_choose_theme.
   ///
   /// In en, this message translates to:
   /// **'Choose your preferred theme'**
-  String get chooseTheme;
+  String get label_choose_theme;
 
-  /// No description provided for @notifications.
+  /// No description provided for @label_notifications.
   ///
   /// In en, this message translates to:
   /// **'Notifications'**
-  String get notifications;
+  String get label_notifications;
 
-  /// No description provided for @manageNotifications.
+  /// No description provided for @label_manage_notifications.
   ///
   /// In en, this message translates to:
   /// **'Manage your notification preferences'**
-  String get manageNotifications;
+  String get label_manage_notifications;
 
-  /// No description provided for @privacy.
+  /// No description provided for @label_privacy.
   ///
   /// In en, this message translates to:
   /// **'Privacy'**
-  String get privacy;
+  String get label_privacy;
 
-  /// No description provided for @managePrivacy.
+  /// No description provided for @label_manage_privacy.
   ///
   /// In en, this message translates to:
   /// **'Manage your privacy and data settings'**
-  String get managePrivacy;
+  String get label_manage_privacy;
 
-  /// No description provided for @language.
+  /// No description provided for @label_language.
   ///
   /// In en, this message translates to:
   /// **'Language'**
-  String get language;
+  String get label_language;
 
-  /// No description provided for @signOutConfirmation.
+  /// No description provided for @dialog_sign_out_title.
   ///
   /// In en, this message translates to:
   /// **'Are you sure you want to sign out?'**
-  String get signOutConfirmation;
+  String get dialog_sign_out_title;
 
-  /// No description provided for @deleteAccount.
+  /// No description provided for @action_delete_account.
   ///
   /// In en, this message translates to:
   /// **'Delete Account'**
-  String get deleteAccount;
+  String get action_delete_account;
 
-  /// No description provided for @deleteAccountWarning.
+  /// No description provided for @label_delete_account_warning.
   ///
   /// In en, this message translates to:
   /// **'This action cannot be undone'**
-  String get deleteAccountWarning;
+  String get label_delete_account_warning;
 
-  /// No description provided for @failedToSignOut.
+  /// No description provided for @error_failed_sign_out.
   ///
   /// In en, this message translates to:
   /// **'Failed to sign out'**
-  String get failedToSignOut;
+  String get error_failed_sign_out;
 
-  /// No description provided for @deleteAccountConfirmation.
+  /// No description provided for @dialog_delete_account_confirm.
   ///
   /// In en, this message translates to:
   /// **'Are you sure you want to delete your account? All your data will be permanently removed.'**
-  String get deleteAccountConfirmation;
+  String get dialog_delete_account_confirm;
 
-  /// No description provided for @failedToDeleteAccount.
+  /// No description provided for @error_failed_delete_account.
   ///
   /// In en, this message translates to:
   /// **'Failed to delete account'**
-  String get failedToDeleteAccount;
+  String get error_failed_delete_account;
 
-  /// No description provided for @deleteTrip.
+  /// No description provided for @action_delete_trip.
   ///
   /// In en, this message translates to:
   /// **'Delete Trip'**
-  String get deleteTrip;
+  String get action_delete_trip;
 
-  /// No description provided for @deleteTripConfirmation.
+  /// No description provided for @dialog_delete_trip_confirm.
   ///
   /// In en, this message translates to:
   /// **'Are you sure you want to delete \"{tripTitle}\"?'**
-  String deleteTripConfirmation(String tripTitle);
+  String dialog_delete_trip_confirm(String tripTitle);
 
-  /// No description provided for @noTrips.
+  /// No description provided for @label_no_trips.
   ///
   /// In en, this message translates to:
   /// **'No trips yet'**
-  String get noTrips;
+  String get label_no_trips;
 
-  /// No description provided for @somethingWentWrong.
+  /// No description provided for @error_something_went_wrong.
   ///
   /// In en, this message translates to:
   /// **'Something went wrong'**
-  String get somethingWentWrong;
+  String get error_something_went_wrong;
 
-  /// No description provided for @goHome.
+  /// No description provided for @action_go_home.
   ///
   /// In en, this message translates to:
   /// **'Go Home'**
-  String get goHome;
+  String get action_go_home;
 
-  /// No description provided for @pageNotFound.
+  /// No description provided for @heading_page_not_found.
   ///
   /// In en, this message translates to:
   /// **'Page not found'**
-  String get pageNotFound;
+  String get heading_page_not_found;
 
-  /// No description provided for @thePageYoureLookingForDoesntExist.
+  /// No description provided for @label_page_not_found_desc.
   ///
   /// In en, this message translates to:
   /// **'The page you\'re looking for doesn\'t exist.'**
-  String get thePageYoureLookingForDoesntExist;
+  String get label_page_not_found_desc;
 
-  /// No description provided for @themeLight.
+  /// No description provided for @label_theme_light.
   ///
   /// In en, this message translates to:
   /// **'Light'**
-  String get themeLight;
+  String get label_theme_light;
 
-  /// No description provided for @themeDark.
+  /// No description provided for @label_theme_dark.
   ///
   /// In en, this message translates to:
   /// **'Dark'**
-  String get themeDark;
+  String get label_theme_dark;
 
-  /// No description provided for @themeSystem.
+  /// No description provided for @label_theme_system.
   ///
   /// In en, this message translates to:
   /// **'System'**
-  String get themeSystem;
+  String get label_theme_system;
 
-  /// No description provided for @networkError.
+  /// No description provided for @error_network.
   ///
   /// In en, this message translates to:
   /// **'Network Error'**
-  String get networkError;
+  String get error_network;
 
-  /// No description provided for @pleaseCheckYourInternetConnection.
+  /// No description provided for @error_network_desc.
   ///
   /// In en, this message translates to:
   /// **'Please check your internet connection and try again.'**
-  String get pleaseCheckYourInternetConnection;
+  String get error_network_desc;
 
-  /// No description provided for @serverError.
+  /// No description provided for @error_server.
   ///
   /// In en, this message translates to:
   /// **'Server Error'**
-  String get serverError;
+  String get error_server;
 
-  /// No description provided for @ourServersAreExperiencingIssues.
+  /// No description provided for @error_server_desc.
   ///
   /// In en, this message translates to:
   /// **'Our servers are experiencing issues. Please try again later.'**
-  String get ourServersAreExperiencingIssues;
+  String get error_server_desc;
 
-  /// No description provided for @unknownErrorMessage.
+  /// No description provided for @error_unknown.
   ///
   /// In en, this message translates to:
   /// **'An unknown error occurred'**
-  String get unknownErrorMessage;
+  String get error_unknown;
 
-  /// No description provided for @timeoutErrorMessage.
+  /// No description provided for @error_timeout.
   ///
   /// In en, this message translates to:
   /// **'Request timed out'**
-  String get timeoutErrorMessage;
+  String get error_timeout;
 
-  /// No description provided for @successMessage.
+  /// No description provided for @toast_success_generic.
   ///
   /// In en, this message translates to:
   /// **'Operation completed successfully'**
-  String get successMessage;
+  String get toast_success_generic;
 
-  /// No description provided for @personalInformation.
+  /// No description provided for @heading_personal_info.
   ///
   /// In en, this message translates to:
   /// **'Personal Information'**
-  String get personalInformation;
+  String get heading_personal_info;
 
-  /// No description provided for @email.
+  /// No description provided for @label_email_simple.
   ///
   /// In en, this message translates to:
   /// **'Email'**
-  String get email;
+  String get label_email_simple;
 
-  /// No description provided for @name.
+  /// No description provided for @label_name.
   ///
   /// In en, this message translates to:
   /// **'Name'**
-  String get name;
+  String get label_name;
 
-  /// No description provided for @enterName.
+  /// No description provided for @hint_enter_name.
   ///
   /// In en, this message translates to:
   /// **'Enter your name'**
-  String get enterName;
+  String get hint_enter_name;
 
-  /// No description provided for @editProfile.
+  /// No description provided for @heading_edit_profile.
   ///
   /// In en, this message translates to:
   /// **'Edit Profile'**
-  String get editProfile;
+  String get heading_edit_profile;
 
-  /// No description provided for @save.
+  /// No description provided for @action_save.
   ///
   /// In en, this message translates to:
   /// **'Save'**
-  String get save;
+  String get action_save;
+
+  /// No description provided for @toast_welcome_to_wanderly.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Wanderly!'**
+  String get toast_welcome_to_wanderly;
+
+  /// No description provided for @heading_sign_up_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Join our community of travelers'**
+  String get heading_sign_up_subtitle;
+
+  /// No description provided for @heading_create_trip.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Trip'**
+  String get heading_create_trip;
+
+  /// No description provided for @hint_enter_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter trip description'**
+  String get hint_enter_description;
+
+  /// No description provided for @hint_enter_budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your budget'**
+  String get hint_enter_budget;
+
+  /// No description provided for @action_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get action_create;
+
+  /// No description provided for @action_sign_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get action_sign_up;
+
+  /// No description provided for @label_confirm_password_simple.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get label_confirm_password_simple;
+
+  /// No description provided for @hint_confirm_password_simple.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your password'**
+  String get hint_confirm_password_simple;
+
+  /// No description provided for @error_invalid_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid name'**
+  String get error_invalid_name;
+
+  /// No description provided for @label_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get label_all;
+
+  /// No description provided for @heading_welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get heading_welcome;
+
+  /// No description provided for @label_profile_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get label_profile_updated;
+
+  /// No description provided for @label_no_changes.
+  ///
+  /// In en, this message translates to:
+  /// **'No changes to save'**
+  String get label_no_changes;
+
+  /// No description provided for @error_update_profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to update profile'**
+  String get error_update_profile;
+
+  /// No description provided for @nav_lists.
+  ///
+  /// In en, this message translates to:
+  /// **'My Lists'**
+  String get nav_lists;
+
+  /// No description provided for @label_currency_converter.
+  ///
+  /// In en, this message translates to:
+  /// **'Converter'**
+  String get label_currency_converter;
+
+  /// No description provided for @heading_trip_lists.
+  ///
+  /// In en, this message translates to:
+  /// **'Trip Lists'**
+  String get heading_trip_lists;
+
+  /// No description provided for @label_no_lists.
+  ///
+  /// In en, this message translates to:
+  /// **'No lists yet'**
+  String get label_no_lists;
+
+  /// No description provided for @label_add_note.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Note'**
+  String get label_add_note;
+
+  /// No description provided for @label_add_checklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Checklist'**
+  String get label_add_checklist;
+
+  /// No description provided for @hint_note_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get hint_note_title;
+
+  /// No description provided for @hint_note_content.
+  ///
+  /// In en, this message translates to:
+  /// **'Write something...'**
+  String get hint_note_content;
+
+  /// No description provided for @hint_checklist_item.
+  ///
+  /// In en, this message translates to:
+  /// **'New item'**
+  String get hint_checklist_item;
+
+  /// No description provided for @label_notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get label_notes;
+
+  /// No description provided for @label_checklists.
+  ///
+  /// In en, this message translates to:
+  /// **'Checklists'**
+  String get label_checklists;
+
+  /// No description provided for @action_delete_note.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Note'**
+  String get action_delete_note;
+
+  /// No description provided for @dialog_delete_note_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this note?'**
+  String get dialog_delete_note_confirm;
+
+  /// No description provided for @label_hello.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String label_hello(String name);
+
+  /// No description provided for @heading_account_actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Actions'**
+  String get heading_account_actions;
+
+  /// No description provided for @heading_developer_tools.
+  ///
+  /// In en, this message translates to:
+  /// **'Developer Tools'**
+  String get heading_developer_tools;
+
+  /// No description provided for @label_wanderly_console.
+  ///
+  /// In en, this message translates to:
+  /// **'Wanderly Console'**
+  String get label_wanderly_console;
+
+  /// No description provided for @label_wanderly_console_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Inspect system logs and diagnostics'**
+  String get label_wanderly_console_desc;
+
+  /// No description provided for @toast_account_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deleted successfully'**
+  String get toast_account_deleted;
+
+  /// No description provided for @error_failed_delete_account_full.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete account: {error}'**
+  String error_failed_delete_account_full(String error);
+
+  /// No description provided for @label_manage_data.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage device permissions'**
+  String get label_manage_data;
+
+  /// No description provided for @label_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get label_verified;
 }
 
 class _AppLocalizationsDelegate

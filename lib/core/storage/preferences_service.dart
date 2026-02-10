@@ -5,37 +5,41 @@ class PreferencesService {
   factory PreferencesService() => _instance;
   PreferencesService._();
 
-  SharedPreferences? _prefs;
+  late SharedPreferences _prefs;
 
   Future<void> init() async {
-    _prefs ??= await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  Future<void> saveThemeMode(int mode) async {
-    await _prefs?.setInt('theme_mode', mode);
-  }
+  static const String _keyLanguage = 'language';
+  static const String _keyTheme = 'theme';
+  static const String _keyIsLoggedIn = 'is_logged_in';
 
-  Future<int> getThemeMode() async {
-    return _prefs?.getInt('theme_mode') ?? 0;
-  }
-
-  Future<void> saveLanguage(int language) async {
-    await _prefs?.setInt('language', language);
+  Future<void> saveLanguage(int index) async {
+    await _prefs.setInt(_keyLanguage, index);
   }
 
   Future<int> getLanguage() async {
-    return _prefs?.getInt('language') ?? 0;
+    return _prefs.getInt(_keyLanguage) ?? 0;
   }
 
-  Future<void> saveUserId(String userId) async {
-    await _prefs?.setString('user_id', userId);
+  Future<void> saveTheme(bool isDark) async {
+    await _prefs.setBool(_keyTheme, isDark);
   }
 
-  String? getUserId() {
-    return _prefs?.getString('user_id');
+  Future<bool> getTheme() async {
+    return _prefs.getBool(_keyTheme) ?? false;
   }
 
-  Future<void> clearAll() async {
-    await _prefs?.clear();
+  Future<void> setLoggedIn(bool value) async {
+    await _prefs.setBool(_keyIsLoggedIn, value);
+  }
+
+  bool isLoggedIn() {
+    return _prefs.getBool(_keyIsLoggedIn) ?? false;
+  }
+
+  Future<void> clear() async {
+    await _prefs.clear();
   }
 }

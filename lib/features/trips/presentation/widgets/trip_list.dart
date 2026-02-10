@@ -27,6 +27,7 @@ class TripList extends StatelessWidget {
         final trip = trips[index];
         return TripCard(
           trip: TripDto(trip),
+          showActions: false,
           onTap: () => onTripTap(trip),
           onEdit: () => onEdit(trip),
           onDelete: () => onDelete(trip),

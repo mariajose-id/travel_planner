@@ -17,13 +17,12 @@ class HiveService {
       await Hive.openBox<UserModel>('users');
       await Hive.openBox<TripModel>('trips');
       await Hive.openBox<dynamic>('auth');
+      await Hive.openBox<Map>('trip_notes');
 
       _isInitialized = true;
-      AppLogger.getLogger('HiveService').info('Hive initialized successfully');
+      AppLogger.info('Hive initialized successfully');
     } catch (e) {
-      AppLogger.getLogger(
-        'HiveService',
-      ).severe('Failed to initialize Hive: $e');
+      AppLogger.error('Failed to initialize Hive: $e', tag: 'HiveService');
       rethrow;
     }
   }
@@ -43,11 +42,14 @@ class HiveService {
     return Hive.box('auth');
   }
 
+  static Box<Map> getTripNotesBox() {
+    _ensureInitialized();
+    return Hive.box<Map>('trip_notes');
+  }
+
   static void _ensureInitialized() {
     if (!_isInitialized) {
-      throw Exception(
-        'HiveService not initialized. Call HiveService.initialize() first.',
-      );
+      throw Exception('HiveService not initialized');
     }
   }
 
@@ -63,36 +65,36 @@ class HiveService {
     await Hive.box<TripModel>('trips').clear();
     await Hive.box<dynamic>('auth').clear();
 
-    AppLogger.getLogger('HiveService').info('ALL HIVE DATA CLEARED');
+    AppLogger.data('All Hive boxes cleared', tag: 'HiveService');
   }
 
   static Future<void> logAllData() async {
     if (!_isInitialized) await initialize();
 
-    final logger = AppLogger.getLogger('HiveService');
-    logger.info('=== HIVE DATA DEBUG ===');
-
-    final usersBox = Hive.box('users');
-    logger.info('USERS (${usersBox.length}):');
+    final usersBox = Hive.box<UserModel>('users');
+    AppLogger.data('USERS (${usersBox.length}):');
     for (var key in usersBox.keys) {
-      logger.info('  Key: $key, Value: ${usersBox.get(key)}');
+      final user = usersBox.get(key);
+      AppLogger.data(
+        '  Key: $key, Email: ${user?.email}, PW: ${user?.password}, Name: ${user?.name}',
+      );
     }
 
     final authBox = Hive.box<dynamic>('auth');
-    logger.info('AUTH (${authBox.length}):');
+    AppLogger.data('AUTH (${authBox.length}):');
     for (var key in authBox.keys) {
-      logger.info('  Key: $key, Value: ${authBox.get(key)}');
+      AppLogger.data('  Key: $key, Value: ${authBox.get(key)}');
     }
 
     final tripsBox = Hive.box<TripModel>('trips');
-    logger.info('TRIPS (${tripsBox.length}):');
+    AppLogger.data('TRIPS (${tripsBox.length}):');
     for (var key in tripsBox.keys) {
       final trip = tripsBox.get(key);
-      logger.info(
+      AppLogger.data(
         '  Key: $key, Trip ID: ${trip?.id}, User ID: ${trip?.userId}, Title: ${trip?.title}',
       );
     }
 
-    logger.info('========================');
+    AppLogger.data('========================');
   }
 }

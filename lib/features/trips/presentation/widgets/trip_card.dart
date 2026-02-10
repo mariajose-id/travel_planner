@@ -1,4 +1,6 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:travel_planner/features/trips/presentation/dtos/trip_dto.dart';
 import 'package:travel_planner/features/trips/domain/entities/trip.dart';
 import 'package:travel_planner/shared/widgets/app_dropdown.dart';
@@ -9,6 +11,7 @@ class TripCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+  final bool showActions;
 
   const TripCard({
     super.key,
@@ -16,34 +19,45 @@ class TripCard extends StatelessWidget {
     required this.onTap,
     required this.onEdit,
     required this.onDelete,
+    this.showActions = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      decoration: _buildCardDecoration(context),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                _StatusIndicatorWidget(trip: trip),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: _TripInfoWidget(trip: trip),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          child: Container(
+            decoration: _buildCardDecoration(context),
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  HapticFeedback.lightImpact();
+                  onTap.call();
+                },
+                borderRadius: BorderRadius.circular(20),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      _StatusIndicatorWidget(trip: trip),
+                      const SizedBox(width: 14),
+                      Expanded(child: _TripInfoWidget(trip: trip)),
+                      if (showActions)
+                        _TripActionsWidget(
+                          status: trip.status,
+                          statusColor: trip.statusColor,
+                          onEdit: onEdit,
+                          onDelete: onDelete,
+                        ),
+                    ],
+                  ),
                 ),
-                _TripActionsWidget(
-                  status: trip.status,
-                  statusColor: trip.statusColor,
-                  onEdit: onEdit,
-                  onDelete: onDelete,
-                ),
-              ],
+              ),
             ),
           ),
         ),
@@ -52,17 +66,21 @@ class TripCard extends StatelessWidget {
   }
 
   BoxDecoration _buildCardDecoration(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return BoxDecoration(
-      color: context.colorScheme.surface,
-      borderRadius: BorderRadius.circular(16),
+      color: isDark 
+          ? context.colorScheme.surface.withValues(alpha: 0.4)
+          : Colors.white,
+      borderRadius: BorderRadius.circular(20),
       border: Border.all(
-        color: context.colorScheme.outline.withValues(alpha: 0.08),
+        color: context.colorScheme.onSurface.withValues(alpha: 0.12),
+        width: 1,
       ),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withValues(alpha: 0.04),
-          blurRadius: 12,
-          offset: const Offset(0, 4),
+          color: Colors.black.withValues(alpha: 0.05),
+          blurRadius: 15,
+          offset: const Offset(0, 8),
         ),
       ],
     );
@@ -71,7 +89,7 @@ class TripCard extends StatelessWidget {
 
 class _StatusIndicatorWidget extends StatelessWidget {
   final TripDto trip;
-  
+
   const _StatusIndicatorWidget({required this.trip});
 
   @override
@@ -82,18 +100,14 @@ class _StatusIndicatorWidget extends StatelessWidget {
         color: trip.statusColor.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(14),
       ),
-      child: Icon(
-        trip.statusIcon,
-        color: trip.statusColor,
-        size: 22,
-      ),
+      child: Icon(trip.statusIcon, color: trip.statusColor, size: 22),
     );
   }
 }
 
 class _TripInfoWidget extends StatelessWidget {
   final TripDto trip;
-  
+
   const _TripInfoWidget({required this.trip});
 
   @override
@@ -149,12 +163,6 @@ class _TripInfoWidget extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.attach_money,
-                    size: 10,
-                    color: context.colorScheme.primary,
-                  ),
-                  const SizedBox(width: 4),
                   Text(
                     trip.displayBudget,
                     style: const TextStyle(
@@ -206,8 +214,8 @@ class _TripActionsWidget extends StatelessWidget {
           ),
           child: Text(
             _getStatusLabel(context, status),
-            style: const TextStyle(
-              color: Colors.white, // Will be overridden by theme
+            style: TextStyle(
+              color: statusColor,
               fontSize: 10,
               fontWeight: FontWeight.w700,
             ),
@@ -218,8 +226,14 @@ class _TripActionsWidget extends StatelessWidget {
           value: null,
           icon: Icons.more_vert,
           items: [
-            DropdownMenuItem(value: 'edit', child: Text(context.l10n.edit)),
-            DropdownMenuItem(value: 'delete', child: Text(context.l10n.delete)),
+            DropdownMenuItem(
+              value: 'edit',
+              child: Text(context.l10n.action_edit),
+            ),
+            DropdownMenuItem(
+              value: 'delete',
+              child: Text(context.l10n.action_delete),
+            ),
           ],
           onChanged: _handleDropdownChange,
         ),
@@ -229,9 +243,9 @@ class _TripActionsWidget extends StatelessWidget {
 
   String _getStatusLabel(BuildContext context, TripStatus status) {
     return switch (status) {
-      TripStatus.planned => context.l10n.planned.toUpperCase(),
-      TripStatus.upcoming => context.l10n.ongoing.toUpperCase(),
-      TripStatus.completed => context.l10n.completed.toUpperCase(),
+      TripStatus.planned => context.l10n.label_status_planned.toUpperCase(),
+      TripStatus.upcoming => context.l10n.label_status_ongoing.toUpperCase(),
+      TripStatus.completed => context.l10n.label_status_completed.toUpperCase(),
     };
   }
 }

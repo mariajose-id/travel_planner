@@ -9,226 +9,231 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'Planificador de Viajes';
+  String get app_title => 'Planificador de Viajes';
 
   @override
-  String get auth_accountCreated => '¡Cuenta creada exitosamente!';
+  String get toast_account_created => '¡Cuenta creada exitosamente!';
 
   @override
-  String get auth_email => 'Correo Electrónico';
+  String get label_email => 'Correo Electrónico';
 
   @override
-  String get auth_password => 'Contraseña';
+  String get label_password => 'Contraseña';
 
   @override
-  String get auth_confirmPassword => 'Confirmar Contraseña';
+  String get label_confirm_password => 'Confirmar Contraseña';
 
   @override
-  String get home_welcome => 'Bienvenido';
+  String get label_welcome => 'Bienvenido';
 
   @override
-  String get home_upcomingTrips => 'Próximos Viajes';
+  String get heading_upcoming_trips => 'Mis Viajes';
 
   @override
-  String get home_recentlyViewed => 'Vistos Recientemente';
+  String get heading_recently_viewed => 'Vistos Recientemente';
 
   @override
-  String get errors_invalidEmail =>
+  String get error_invalid_email =>
       'Por favor ingresa un correo electrónico válido';
 
   @override
-  String get errors_shortPassword =>
+  String get error_short_password =>
       'La contraseña debe tener al menos 6 caracteres';
 
   @override
-  String get errors_passwordsDontMatch => 'Las contraseñas no coinciden';
+  String get error_passwords_dont_match => 'Las contraseñas no coinciden';
 
   @override
-  String get errors_requiredField => 'Este campo es requerido';
+  String get error_required_field => 'Este campo es requerido';
 
   @override
-  String get errors_genericError =>
-      'Ocurrió un error. Por favor inténtalo de nuevo.';
+  String get error_generic => 'Ocurrió un error. Por favor inténtalo de nuevo.';
 
   @override
-  String get signInSubtitle => 'Inicia sesión para continuar';
+  String get error_email_exists => 'An account with this email already exists';
 
   @override
-  String get welcomeBack => 'Bienvenido de Nuevo';
+  String get error_user_not_found => 'User not found';
 
   @override
-  String get createAccount => 'Crear Cuenta';
+  String get heading_sign_in_subtitle => 'Inicia sesión para continuar';
 
   @override
-  String get or => 'O';
+  String get heading_welcome_back => 'Bienvenido de Nuevo';
 
   @override
-  String get alreadyHaveAccount => '¿Ya tienes cuenta? Iniciar Sesión';
+  String get heading_create_account => 'Crear Cuenta';
 
   @override
-  String get fullName => 'Nombre Completo';
+  String get label_or => 'O';
 
   @override
-  String get enterFullName => 'Ingresa tu nombre completo';
+  String get label_already_have_account => '¿Ya tienes cuenta? Iniciar Sesión';
 
   @override
-  String get enterEmail => 'Ingresa tu correo electrónico';
+  String get label_full_name => 'Nombre Completo';
 
   @override
-  String get enterPassword => 'Ingresa tu contraseña';
+  String get hint_enter_full_name => 'Ingresa tu nombre completo';
 
   @override
-  String get enterConfirmPassword => 'Confirma tu contraseña';
+  String get hint_enter_email => 'Ingresa tu correo electrónico';
 
   @override
-  String get createAccountButton => 'Crear Cuenta';
+  String get hint_enter_password => 'Ingresa tu contraseña';
 
   @override
-  String get signInButton => 'Iniciar Sesión';
+  String get hint_confirm_password => 'Confirma tu contraseña';
 
   @override
-  String get fillInDetails => 'Completa tus datos para comenzar';
+  String get action_create_account => 'Crear Cuenta';
 
   @override
-  String get journeyStartsHere => 'Tu viaje comienza aquí';
+  String get action_sign_in => 'Iniciar Sesión';
 
   @override
-  String get signOut => 'Cerrar Sesión';
+  String get heading_fill_details => 'Completa tus datos para comenzar';
 
   @override
-  String get settings => 'Configuración';
+  String get heading_journey_starts => 'Tu viaje comienza aquí';
 
   @override
-  String get appSettings => 'Ajustes de la aplicación';
+  String get action_sign_out => 'Cerrar Sesión';
 
   @override
-  String get termsOfService => 'Términos de servicio';
+  String get heading_settings => 'Configuración';
 
   @override
-  String get privacyPolicy => 'Política de privacidad';
+  String get heading_app_settings => 'Ajustes de la Aplicación';
 
   @override
-  String get contactUs => 'Contáctenos';
+  String get label_terms_of_service => 'Términos de Servicio';
 
   @override
-  String get cancel => 'Cancelar';
+  String get label_privacy_policy => 'Política de Privacidad';
 
   @override
-  String get selectDate => 'Seleccionar una fecha';
+  String get label_contact_us => 'Contáctenos';
 
   @override
-  String get explore => 'Explorar';
+  String get action_cancel => 'Cancelar';
 
   @override
-  String get favorites => 'Favoritos';
+  String get action_select_date => 'Seleccionar una fecha';
 
   @override
-  String get yourTrips => 'Tus Viajes';
+  String get tab_explore => 'Explorar';
 
   @override
-  String get errorLoadingTrips => 'Error al cargar los viajes';
+  String get tab_favorites => 'Favoritos';
 
   @override
-  String get noRecentTrips => 'Sin viajes recientes';
+  String get tab_your_trips => 'Tus Viajes';
 
   @override
-  String get startPlanning => 'Empieza a planear tu próxima aventura';
+  String get error_loading_trips => 'Error al cargar los viajes';
 
   @override
-  String get addTrip => 'Agregar Viaje';
+  String get label_no_recent_trips => 'Sin viajes recientes';
 
   @override
-  String get totalTrips => 'Viajes Totales';
+  String get label_start_planning => 'Empieza a planear tu próxima aventura';
 
   @override
-  String get totalBudget => 'Presupuesto Total';
+  String get action_add_trip => 'Añadir Viaje';
 
   @override
-  String get planned => 'Planeado';
+  String get label_total_trips => 'Viajes Totales';
 
   @override
-  String get ongoing => 'En Curso';
+  String get label_total_budget => 'Presupuesto Total';
 
   @override
-  String get completed => 'Completado';
+  String get label_status_planned => 'Planeado';
 
   @override
-  String get tripDetails => 'Detalles del Viaje';
+  String get label_status_ongoing => 'En Curso';
 
   @override
-  String get close => 'Cerrar';
+  String get label_status_completed => 'Completado';
 
   @override
-  String get description => 'Descripción';
+  String get heading_trip_details => 'Detalles del Viaje';
 
   @override
-  String get enterTripDescription => 'Ingrese la descripción del viaje';
+  String get action_close => 'Cerrar';
 
   @override
-  String get destination => 'Destino';
+  String get label_description => 'Descripción';
 
   @override
-  String get enterDestination => 'Ingrese el destino';
+  String get hint_enter_trip_description => 'Ingrese la descripción del viaje';
 
   @override
-  String get startDate => 'Fecha de Inicio';
+  String get label_destination => 'Destino';
 
   @override
-  String get endDate => 'Fecha de Finalización';
+  String get hint_enter_destination => 'Ingrese el destino';
 
   @override
-  String get budget => 'Presupuesto';
+  String get label_start_date => 'Fecha de Inicio';
 
   @override
-  String get status => 'Estado';
+  String get label_end_date => 'Fecha de Finalización';
 
   @override
-  String get addNewTrip => 'Agregar Nuevo Viaje';
+  String get label_budget => 'Presupuesto';
 
   @override
-  String get editTrip => 'Editar Viaje';
+  String get label_status => 'Estado';
 
   @override
-  String get edit => 'Editar';
+  String get action_add_new_trip => 'Agregar Nuevo Viaje';
 
   @override
-  String get delete => 'Eliminar';
+  String get heading_edit_trip => 'Editar Viaje';
 
   @override
-  String get retry => 'Reintentar';
+  String get action_edit => 'Editar';
 
   @override
-  String get tripTitle => 'Título del Viaje';
+  String get action_delete => 'Eliminar';
 
   @override
-  String get updateTrip => 'Actualizar Viaje';
+  String get action_retry => 'Reintentar';
 
   @override
-  String get enterTripTitle => 'Por favor ingrese un título de viaje';
+  String get label_trip_title => 'Título del Viaje';
 
   @override
-  String get pleaseEnterValidNumber => 'Por favor ingrese un número válido';
+  String get action_update_trip => 'Actualizar Viaje';
 
   @override
-  String get toast_welcomeBack => '¡Bienvenido de nuevo!';
+  String get hint_enter_trip_title => 'Ingrese el título del viaje';
 
   @override
-  String get toast_invalidCredentials => 'Correo o contraseña inválidos';
+  String get error_invalid_number => 'Por favor ingrese un número válido';
 
   @override
-  String get toast_tripCreated => '¡Viaje creado exitosamente!';
+  String get toast_welcome_back => '¡Bienvenido de nuevo!';
 
   @override
-  String toast_tripError(String error) {
+  String get error_invalid_credentials => 'Correo o contraseña inválidos';
+
+  @override
+  String get toast_trip_created => '¡Viaje creado exitosamente!';
+
+  @override
+  String error_trip_generic(String error) {
     return 'Error: $error';
   }
 
   @override
-  String get toast_endDateAfterStart =>
+  String get error_end_date_after_start =>
       'La fecha de fin debe ser después de la fecha de inicio';
 
   @override
-  String get toast_selectBothDates =>
+  String get error_select_both_dates =>
       'Por favor selecciona fecha de inicio y fin';
 
   @override
@@ -244,42 +249,42 @@ class AppLocalizationsEs extends AppLocalizations {
   String get nav_saved => 'Guardados';
 
   @override
-  String get quickActions => 'Acciones Rápidas';
+  String get heading_quick_actions => 'Acciones Rápidas';
 
   @override
-  String get viewYourTrips => 'Ver tus viajes';
+  String get label_view_your_trips => 'Ver tus viajes';
 
   @override
-  String get recentPlaces => 'Lugares recientes';
+  String get heading_recent_places => 'Lugares recientes';
 
   @override
-  String get savedPlaces => 'Lugares guardados';
+  String get heading_saved_places => 'Lugares guardados';
 
   @override
-  String get recentActivity => 'Actividad Reciente';
+  String get heading_recent_activity => 'Actividad Reciente';
 
   @override
-  String get profile => 'Perfil';
+  String get heading_profile => 'Perfil';
 
   @override
-  String comingSoon(String feature) {
+  String label_coming_soon(String feature) {
     return '$feature - Próximamente';
   }
 
   @override
-  String get tripStatusPlanned => 'Planeado';
+  String get label_status_planned_tag => 'Planeado';
 
   @override
-  String get tripStatusOngoing => 'En curso';
+  String get label_status_ongoing_tag => 'En Curso';
 
   @override
-  String get tripStatusCompleted => 'Completado';
+  String get label_status_completed_tag => 'Completado';
 
   @override
-  String get tripStatusCancelled => 'Cancelado';
+  String get label_status_cancelled_tag => 'Cancelado';
 
   @override
-  String get signInWithGoogle => 'Continuar con Google';
+  String get action_sign_in_google => 'Continuar con Google';
 
   @override
   String get tab_profile => 'Perfil';
@@ -291,121 +296,239 @@ class AppLocalizationsEs extends AppLocalizations {
   String get tab_account => 'Cuenta';
 
   @override
-  String get manageYourProfile => 'Gestiona tu perfil y preferencias';
+  String get label_manage_profile => 'Gestiona tu perfil y preferencias';
 
   @override
-  String get theme => 'Tema';
+  String get label_theme => 'Tema';
 
   @override
-  String get chooseTheme => 'Elige tu tema preferido';
+  String get label_choose_theme => 'Elige tu tema preferido';
 
   @override
-  String get notifications => 'Notificaciones';
+  String get label_notifications => 'Notificaciones';
 
   @override
-  String get manageNotifications =>
+  String get label_manage_notifications =>
       'Gestiona tus preferencias de notificaciones';
 
   @override
-  String get privacy => 'Privacidad';
+  String get label_privacy => 'Privacidad';
 
   @override
-  String get managePrivacy => 'Gestiona tu privacidad y configuración de datos';
+  String get label_manage_privacy =>
+      'Gestiona tu privacidad y configuración de datos';
 
   @override
-  String get language => 'Idioma';
+  String get label_language => 'Idioma';
 
   @override
-  String get signOutConfirmation =>
+  String get dialog_sign_out_title =>
       '¿Estás seguro de que quieres cerrar sesión?';
 
   @override
-  String get deleteAccount => 'Eliminar Cuenta';
+  String get action_delete_account => 'Eliminar Cuenta';
 
   @override
-  String get deleteAccountWarning => 'Esta acción no se puede deshacer';
+  String get label_delete_account_warning => 'Esta acción no se puede deshacer';
 
   @override
-  String get failedToSignOut => 'Error al cerrar sesión';
+  String get error_failed_sign_out => 'Error al cerrar sesión';
 
   @override
-  String get deleteAccountConfirmation =>
+  String get dialog_delete_account_confirm =>
       '¿Estás seguro de que quieres eliminar tu cuenta? Todos tus datos se eliminarán permanentemente.';
 
   @override
-  String get failedToDeleteAccount => 'Error al eliminar la cuenta';
+  String get error_failed_delete_account => 'Error al eliminar la cuenta';
 
   @override
-  String get deleteTrip => 'Eliminar Viaje';
+  String get action_delete_trip => 'Eliminar Viaje';
 
   @override
-  String deleteTripConfirmation(String tripTitle) {
+  String dialog_delete_trip_confirm(String tripTitle) {
     return '¿Estás seguro de que quieres eliminar \"$tripTitle\"?';
   }
 
   @override
-  String get noTrips => 'No hay viajes aún';
+  String get label_no_trips => 'No hay viajes aún';
 
   @override
-  String get somethingWentWrong => 'Algo salió mal';
+  String get error_something_went_wrong => 'Algo salió mal';
 
   @override
-  String get goHome => 'Ir al Inicio';
+  String get action_go_home => 'Ir al Inicio';
 
   @override
-  String get pageNotFound => 'Página no encontrada';
+  String get heading_page_not_found => 'Página no encontrada';
 
   @override
-  String get thePageYoureLookingForDoesntExist =>
-      'La página que buscas no existe.';
+  String get label_page_not_found_desc => 'La página que buscas no existe.';
 
   @override
-  String get themeLight => 'Claro';
+  String get label_theme_light => 'Claro';
 
   @override
-  String get themeDark => 'Oscuro';
+  String get label_theme_dark => 'Oscuro';
 
   @override
-  String get themeSystem => 'Sistema';
+  String get label_theme_system => 'Sistema';
 
   @override
-  String get networkError => 'Error de Red';
+  String get error_network => 'Error de Red';
 
   @override
-  String get pleaseCheckYourInternetConnection =>
+  String get error_network_desc =>
       'Por favor verifica tu conexión a internet e intenta de nuevo.';
 
   @override
-  String get serverError => 'Error del Servidor';
+  String get error_server => 'Error del Servidor';
 
   @override
-  String get ourServersAreExperiencingIssues =>
+  String get error_server_desc =>
       'Nuestros servidores están experimentando problemas. Por favor intenta más tarde.';
 
   @override
-  String get unknownErrorMessage => 'Ocurrió un error desconocido';
+  String get error_unknown => 'Ocurrió un error desconocido';
 
   @override
-  String get timeoutErrorMessage => 'La solicitud agotó el tiempo';
+  String get error_timeout => 'La solicitud agotó el tiempo';
 
   @override
-  String get successMessage => 'Operación completada exitosamente';
+  String get toast_success_generic => 'Operación completada exitosamente';
 
   @override
-  String get personalInformation => 'Personal Information';
+  String get heading_personal_info => 'Información Personal';
 
   @override
-  String get email => 'Email';
+  String get label_email_simple => 'Correo';
 
   @override
-  String get name => 'Name';
+  String get label_name => 'Nombre';
 
   @override
-  String get enterName => 'Enter your name';
+  String get hint_enter_name => 'Ingresa tu nombre';
 
   @override
-  String get editProfile => 'Edit Profile';
+  String get heading_edit_profile => 'Editar Perfil';
 
   @override
-  String get save => 'Save';
+  String get action_save => 'Guardar';
+
+  @override
+  String get toast_welcome_to_wanderly => '¡Bienvenido a Wanderly!';
+
+  @override
+  String get heading_sign_up_subtitle =>
+      'Únete a nuestra comunidad de viajeros';
+
+  @override
+  String get heading_create_trip => 'Crear Viaje';
+
+  @override
+  String get hint_enter_description => 'Ingresa la descripción del viaje';
+
+  @override
+  String get hint_enter_budget => 'Ingresa tu presupuesto';
+
+  @override
+  String get action_create => 'Crear';
+
+  @override
+  String get action_sign_up => 'Registrarse';
+
+  @override
+  String get label_confirm_password_simple => 'Confirmar Contraseña';
+
+  @override
+  String get hint_confirm_password_simple => 'Confirma tu contraseña';
+
+  @override
+  String get error_invalid_name => 'Por favor ingresa un nombre válido';
+
+  @override
+  String get label_all => 'Todos';
+
+  @override
+  String get heading_welcome => 'Bienvenido';
+
+  @override
+  String get label_profile_updated => 'Perfil actualizado exitosamente';
+
+  @override
+  String get label_no_changes => 'Sin cambios para guardar';
+
+  @override
+  String get error_update_profile => 'Error al actualizar perfil';
+
+  @override
+  String get nav_lists => 'Mis Listas';
+
+  @override
+  String get label_currency_converter => 'Conversor';
+
+  @override
+  String get heading_trip_lists => 'Listas de Viaje';
+
+  @override
+  String get label_no_lists => 'No hay listas aún';
+
+  @override
+  String get label_add_note => 'Añadir Nota';
+
+  @override
+  String get label_add_checklist => 'Añadir Lista de Verificación';
+
+  @override
+  String get hint_note_title => 'Título';
+
+  @override
+  String get hint_note_content => 'Escribe algo...';
+
+  @override
+  String get hint_checklist_item => 'Nuevo elemento';
+
+  @override
+  String get label_notes => 'Notas';
+
+  @override
+  String get label_checklists => 'Listas de Verificación';
+
+  @override
+  String get action_delete_note => 'Eliminar Nota';
+
+  @override
+  String get dialog_delete_note_confirm =>
+      '¿Estás seguro de que quieres eliminar esta nota?';
+
+  @override
+  String label_hello(String name) {
+    return 'Hola, $name';
+  }
+
+  @override
+  String get heading_account_actions => 'Acciones de Cuenta';
+
+  @override
+  String get heading_developer_tools => 'Herramientas de Desarrollador';
+
+  @override
+  String get label_wanderly_console => 'Consola Wanderly';
+
+  @override
+  String get label_wanderly_console_desc =>
+      'Inspeccionar registros del sistema y diagnósticos';
+
+  @override
+  String get toast_account_deleted => 'Cuenta eliminada exitosamente';
+
+  @override
+  String error_failed_delete_account_full(String error) {
+    return 'Error al eliminar la cuenta: $error';
+  }
+
+  @override
+  String get label_manage_data => 'Gestionar permisos del dispositivo';
+
+  @override
+  String get label_verified => 'Verificado';
 }

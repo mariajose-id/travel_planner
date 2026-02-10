@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_planner/core/theme/app_typography.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
 
 class SectionCard extends StatelessWidget {
   final Widget child;
@@ -10,6 +10,7 @@ class SectionCard extends StatelessWidget {
   final Color? backgroundColor;
   final List<BoxShadow>? boxShadow;
   final VoidCallback? onTap;
+
   const SectionCard({
     super.key,
     required this.child,
@@ -21,6 +22,7 @@ class SectionCard extends StatelessWidget {
     this.boxShadow,
     this.onTap,
   });
+
   @override
   Widget build(BuildContext context) {
     final card = _buildSectionCard(context);
@@ -31,12 +33,10 @@ class SectionCard extends StatelessWidget {
   }
 
   Widget _buildSectionCard(BuildContext context) {
-    final theme = Theme.of(context);
-
     final card = Container(
       padding: padding ?? const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: backgroundColor ?? theme.colorScheme.surface,
+        color: backgroundColor ?? context.colorScheme.surface,
         borderRadius: BorderRadius.circular(borderRadius ?? 24),
         boxShadow:
             boxShadow ??
@@ -54,8 +54,8 @@ class SectionCard extends StatelessWidget {
           if (title != null) ...[
             Text(
               title!,
-              style: context.titleMedium.copyWith(
-                color: theme.colorScheme.onSurface,
+              style: context.textTheme.titleMedium?.copyWith(
+                color: context.colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -64,8 +64,8 @@ class SectionCard extends StatelessWidget {
           if (description != null) ...[
             Text(
               description!,
-              style: context.bodySmall.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              style: context.textTheme.bodySmall?.copyWith(
+                color: context.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
             const SizedBox(height: 16),

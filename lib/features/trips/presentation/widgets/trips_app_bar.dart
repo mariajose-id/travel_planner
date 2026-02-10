@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:travel_planner/core/router/app_routes.dart';
 import 'package:travel_planner/features/trips/domain/entities/trip.dart';
 import 'package:travel_planner/generated/l10n/app_localizations.dart';
+import 'package:travel_planner/shared/widgets/app_tab_bar.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
 
 class TripsAppBar extends StatelessWidget implements PreferredSizeWidget {
   final TabController tabController;
@@ -10,27 +12,39 @@ class TripsAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context);
-
     return AppBar(
-      title: Text(loc.yourTrips),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
+      centerTitle: true,
+      title: Text(
+        context.l10n.tab_your_trips,
+        style: context.textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.5,
+        ),
+      ),
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios),
         onPressed: () => context.goNamed(AppRoutes.home),
       ),
-      bottom: TabBar(
+      bottom: AppTabBar(
         controller: tabController,
-        tabs: TripStatus.values.map((s) => Tab(text: _label(s, loc))).toList(),
-        labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+        tabs: TripStatus.values.map((s) => _label(s, context.l10n)).toList(),
+        currentIndex: tabController.index,
+        onTap: (index) => tabController.animateTo(index),
       ),
     );
   }
 
-  String _label(TripStatus s, AppLocalizations loc) => switch (s) {
-    TripStatus.planned => loc.planned,
-    TripStatus.upcoming => loc.ongoing,
-    TripStatus.completed => loc.completed,
-  }.toUpperCase();
+  String _label(TripStatus s, AppLocalizations loc) {
+    return switch (s) {
+      TripStatus.planned => loc.label_status_planned,
+      TripStatus.upcoming => loc.label_status_ongoing,
+      TripStatus.completed => loc.label_status_completed,
+    };
+  }
 
   @override
   Size get preferredSize => const Size.fromHeight(100);

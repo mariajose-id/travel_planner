@@ -23,7 +23,7 @@ class EmptyRecentTrips extends StatelessWidget {
               color: context.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(Icons.flight, color: context.colorScheme.primary),
+            child: Icon(Icons.public, color: context.colorScheme.primary),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -31,11 +31,11 @@ class EmptyRecentTrips extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  context.l10n.noRecentTrips,
+                  context.l10n.label_no_recent_trips,
                   style: context.textTheme.titleMedium,
                 ),
                 Text(
-                  context.l10n.startPlanning,
+                  context.l10n.label_start_planning,
                   style: context.textTheme.bodySmall?.copyWith(
                     color: context.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),

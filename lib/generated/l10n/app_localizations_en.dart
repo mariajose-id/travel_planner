@@ -9,222 +9,229 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'Travel Planner';
+  String get app_title => 'Travel Planner';
 
   @override
-  String get auth_accountCreated => 'Account created successfully';
+  String get toast_account_created => 'Account created successfully';
 
   @override
-  String get auth_email => 'Email';
+  String get label_email => 'Email';
 
   @override
-  String get auth_password => 'Password';
+  String get label_password => 'Password';
 
   @override
-  String get auth_confirmPassword => 'Confirm Password';
+  String get label_confirm_password => 'Confirm Password';
 
   @override
-  String get home_welcome => 'Welcome';
+  String get label_welcome => 'Welcome';
 
   @override
-  String get home_upcomingTrips => 'Upcoming Trips';
+  String get heading_upcoming_trips => 'My Trips';
 
   @override
-  String get home_recentlyViewed => 'Recently Viewed';
+  String get heading_recently_viewed => 'Recently Viewed';
 
   @override
-  String get errors_invalidEmail => 'Please enter a valid email address';
+  String get error_invalid_email => 'Please enter a valid email address';
 
   @override
-  String get errors_shortPassword => 'Password must be at least 6 characters';
+  String get error_short_password => 'Password must be at least 6 characters';
 
   @override
-  String get errors_passwordsDontMatch => 'Passwords don\'t match';
+  String get error_passwords_dont_match => 'Passwords don\'t match';
 
   @override
-  String get errors_requiredField => 'This field is required';
+  String get error_required_field => 'This field is required';
 
   @override
-  String get errors_genericError => 'An error occurred. Please try again.';
+  String get error_generic => 'An error occurred. Please try again.';
 
   @override
-  String get signInSubtitle => 'Sign in to continue';
+  String get error_email_exists => 'An account with this email already exists';
 
   @override
-  String get welcomeBack => 'Welcome Back';
+  String get error_user_not_found => 'User not found';
 
   @override
-  String get createAccount => 'Create Account';
+  String get heading_sign_in_subtitle => 'Sign in to continue';
 
   @override
-  String get or => 'OR';
+  String get heading_welcome_back => 'Welcome Back';
 
   @override
-  String get alreadyHaveAccount => 'Already have account? Sign In';
+  String get heading_create_account => 'Create Account';
 
   @override
-  String get fullName => 'Full Name';
+  String get label_or => 'OR';
 
   @override
-  String get enterFullName => 'Enter your full name';
+  String get label_already_have_account => 'Already have account? Sign In';
 
   @override
-  String get enterEmail => 'Enter your email';
+  String get label_full_name => 'Full Name';
 
   @override
-  String get enterPassword => 'Enter your password';
+  String get hint_enter_full_name => 'Enter your full name';
 
   @override
-  String get enterConfirmPassword => 'Confirm your password';
+  String get hint_enter_email => 'Enter your email';
 
   @override
-  String get createAccountButton => 'Create Account';
+  String get hint_enter_password => 'Enter your password';
 
   @override
-  String get signInButton => 'Sign In';
+  String get hint_confirm_password => 'Confirm your password';
 
   @override
-  String get fillInDetails => 'Fill in your details to get started';
+  String get action_create_account => 'Create Account';
 
   @override
-  String get journeyStartsHere => 'Your journey starts here';
+  String get action_sign_in => 'Sign In';
 
   @override
-  String get signOut => 'Sign Out';
+  String get heading_fill_details => 'Fill in your details to get started';
 
   @override
-  String get settings => 'Settings';
+  String get heading_journey_starts => 'Your journey starts here';
 
   @override
-  String get appSettings => 'App Settings';
+  String get action_sign_out => 'Sign Out';
 
   @override
-  String get termsOfService => 'Terms of Service';
+  String get heading_settings => 'Settings';
 
   @override
-  String get privacyPolicy => 'Privacy Policy';
+  String get heading_app_settings => 'App Settings';
 
   @override
-  String get contactUs => 'Contact Us';
+  String get label_terms_of_service => 'Terms of Service';
 
   @override
-  String get cancel => 'Cancel';
+  String get label_privacy_policy => 'Privacy Policy';
 
   @override
-  String get selectDate => 'Select a date';
+  String get label_contact_us => 'Contact Us';
 
   @override
-  String get explore => 'Explore';
+  String get action_cancel => 'Cancel';
 
   @override
-  String get favorites => 'Favorites';
+  String get action_select_date => 'Select a date';
 
   @override
-  String get yourTrips => 'Your Trips';
+  String get tab_explore => 'Explore';
 
   @override
-  String get errorLoadingTrips => 'Error loading trips';
+  String get tab_favorites => 'Favorites';
 
   @override
-  String get noRecentTrips => 'No recent trips';
+  String get tab_your_trips => 'Your Trips';
 
   @override
-  String get startPlanning => 'Start planning your next adventure';
+  String get error_loading_trips => 'Error loading trips';
 
   @override
-  String get addTrip => 'Add Trip';
+  String get label_no_recent_trips => 'No recent trips';
 
   @override
-  String get totalTrips => 'Total Trips';
+  String get label_start_planning => 'Start planning your next adventure';
 
   @override
-  String get totalBudget => 'Total Budget';
+  String get action_add_trip => 'Add Trip';
 
   @override
-  String get planned => 'Planned';
+  String get label_total_trips => 'Total Trips';
 
   @override
-  String get ongoing => 'Ongoing';
+  String get label_total_budget => 'Total Budget';
 
   @override
-  String get completed => 'Completed';
+  String get label_status_planned => 'Planned';
 
   @override
-  String get tripDetails => 'Trip Details';
+  String get label_status_ongoing => 'Ongoing';
 
   @override
-  String get close => 'Close';
+  String get label_status_completed => 'Completed';
 
   @override
-  String get description => 'Description';
+  String get heading_trip_details => 'Trip Details';
 
   @override
-  String get enterTripDescription => 'Enter trip description';
+  String get action_close => 'Close';
 
   @override
-  String get destination => 'Destination';
+  String get label_description => 'Description';
 
   @override
-  String get enterDestination => 'Enter destination';
+  String get hint_enter_trip_description => 'Enter trip description';
 
   @override
-  String get startDate => 'Start Date';
+  String get label_destination => 'Destination';
 
   @override
-  String get endDate => 'End Date';
+  String get hint_enter_destination => 'Enter destination';
 
   @override
-  String get budget => 'Budget';
+  String get label_start_date => 'Start Date';
 
   @override
-  String get status => 'Status';
+  String get label_end_date => 'End Date';
 
   @override
-  String get addNewTrip => 'Add New Trip';
+  String get label_budget => 'Budget';
 
   @override
-  String get editTrip => 'Edit Trip';
+  String get label_status => 'Status';
 
   @override
-  String get edit => 'Edit';
+  String get action_add_new_trip => 'Add New Trip';
 
   @override
-  String get delete => 'Delete';
+  String get heading_edit_trip => 'Edit Trip';
 
   @override
-  String get retry => 'Retry';
+  String get action_edit => 'Edit';
 
   @override
-  String get tripTitle => 'Trip Title';
+  String get action_delete => 'Delete';
 
   @override
-  String get updateTrip => 'Update Trip';
+  String get action_retry => 'Retry';
 
   @override
-  String get enterTripTitle => 'Enter trip title';
+  String get label_trip_title => 'Trip Title';
 
   @override
-  String get pleaseEnterValidNumber => 'Please enter a valid number';
+  String get action_update_trip => 'Update Trip';
 
   @override
-  String get toast_welcomeBack => 'Welcome back';
+  String get hint_enter_trip_title => 'Enter trip title';
 
   @override
-  String get toast_invalidCredentials => 'Invalid email or password';
+  String get error_invalid_number => 'Please enter a valid number';
 
   @override
-  String get toast_tripCreated => 'Trip created successfully';
+  String get toast_welcome_back => 'Welcome back';
 
   @override
-  String toast_tripError(String error) {
+  String get error_invalid_credentials => 'Invalid email or password';
+
+  @override
+  String get toast_trip_created => 'Trip created successfully';
+
+  @override
+  String error_trip_generic(String error) {
     return 'Error: $error';
   }
 
   @override
-  String get toast_endDateAfterStart => 'End date must be after start date';
+  String get error_end_date_after_start => 'End date must be after start date';
 
   @override
-  String get toast_selectBothDates => 'Please select both start and end dates';
+  String get error_select_both_dates =>
+      'Please select both start and end dates';
 
   @override
   String get nav_home => 'Home';
@@ -239,42 +246,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nav_saved => 'Saved';
 
   @override
-  String get quickActions => 'Quick Actions';
+  String get heading_quick_actions => 'Quick Actions';
 
   @override
-  String get viewYourTrips => 'View your trips';
+  String get label_view_your_trips => 'View your trips';
 
   @override
-  String get recentPlaces => 'Recent places';
+  String get heading_recent_places => 'Recent places';
 
   @override
-  String get savedPlaces => 'Saved places';
+  String get heading_saved_places => 'Saved places';
 
   @override
-  String get recentActivity => 'Recent Activity';
+  String get heading_recent_activity => 'Recent Activity';
 
   @override
-  String get profile => 'Profile';
+  String get heading_profile => 'Profile';
 
   @override
-  String comingSoon(String feature) {
+  String label_coming_soon(String feature) {
     return '$feature - Coming Soon';
   }
 
   @override
-  String get tripStatusPlanned => 'Planned';
+  String get label_status_planned_tag => 'Planned';
 
   @override
-  String get tripStatusOngoing => 'Ongoing';
+  String get label_status_ongoing_tag => 'Ongoing';
 
   @override
-  String get tripStatusCompleted => 'Completed';
+  String get label_status_completed_tag => 'Completed';
 
   @override
-  String get tripStatusCancelled => 'Cancelled';
+  String get label_status_cancelled_tag => 'Cancelled';
 
   @override
-  String get signInWithGoogle => 'Continue with Google';
+  String get action_sign_in_google => 'Continue with Google';
 
   @override
   String get tab_profile => 'Profile';
@@ -286,119 +293,237 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tab_account => 'Account';
 
   @override
-  String get manageYourProfile => 'Manage your profile and preferences';
+  String get label_manage_profile => 'Manage your profile and preferences';
 
   @override
-  String get theme => 'Theme';
+  String get label_theme => 'Theme';
 
   @override
-  String get chooseTheme => 'Choose your preferred theme';
+  String get label_choose_theme => 'Choose your preferred theme';
 
   @override
-  String get notifications => 'Notifications';
+  String get label_notifications => 'Notifications';
 
   @override
-  String get manageNotifications => 'Manage your notification preferences';
+  String get label_manage_notifications =>
+      'Manage your notification preferences';
 
   @override
-  String get privacy => 'Privacy';
+  String get label_privacy => 'Privacy';
 
   @override
-  String get managePrivacy => 'Manage your privacy and data settings';
+  String get label_manage_privacy => 'Manage your privacy and data settings';
 
   @override
-  String get language => 'Language';
+  String get label_language => 'Language';
 
   @override
-  String get signOutConfirmation => 'Are you sure you want to sign out?';
+  String get dialog_sign_out_title => 'Are you sure you want to sign out?';
 
   @override
-  String get deleteAccount => 'Delete Account';
+  String get action_delete_account => 'Delete Account';
 
   @override
-  String get deleteAccountWarning => 'This action cannot be undone';
+  String get label_delete_account_warning => 'This action cannot be undone';
 
   @override
-  String get failedToSignOut => 'Failed to sign out';
+  String get error_failed_sign_out => 'Failed to sign out';
 
   @override
-  String get deleteAccountConfirmation =>
+  String get dialog_delete_account_confirm =>
       'Are you sure you want to delete your account? All your data will be permanently removed.';
 
   @override
-  String get failedToDeleteAccount => 'Failed to delete account';
+  String get error_failed_delete_account => 'Failed to delete account';
 
   @override
-  String get deleteTrip => 'Delete Trip';
+  String get action_delete_trip => 'Delete Trip';
 
   @override
-  String deleteTripConfirmation(String tripTitle) {
+  String dialog_delete_trip_confirm(String tripTitle) {
     return 'Are you sure you want to delete \"$tripTitle\"?';
   }
 
   @override
-  String get noTrips => 'No trips yet';
+  String get label_no_trips => 'No trips yet';
 
   @override
-  String get somethingWentWrong => 'Something went wrong';
+  String get error_something_went_wrong => 'Something went wrong';
 
   @override
-  String get goHome => 'Go Home';
+  String get action_go_home => 'Go Home';
 
   @override
-  String get pageNotFound => 'Page not found';
+  String get heading_page_not_found => 'Page not found';
 
   @override
-  String get thePageYoureLookingForDoesntExist =>
+  String get label_page_not_found_desc =>
       'The page you\'re looking for doesn\'t exist.';
 
   @override
-  String get themeLight => 'Light';
+  String get label_theme_light => 'Light';
 
   @override
-  String get themeDark => 'Dark';
+  String get label_theme_dark => 'Dark';
 
   @override
-  String get themeSystem => 'System';
+  String get label_theme_system => 'System';
 
   @override
-  String get networkError => 'Network Error';
+  String get error_network => 'Network Error';
 
   @override
-  String get pleaseCheckYourInternetConnection =>
+  String get error_network_desc =>
       'Please check your internet connection and try again.';
 
   @override
-  String get serverError => 'Server Error';
+  String get error_server => 'Server Error';
 
   @override
-  String get ourServersAreExperiencingIssues =>
+  String get error_server_desc =>
       'Our servers are experiencing issues. Please try again later.';
 
   @override
-  String get unknownErrorMessage => 'An unknown error occurred';
+  String get error_unknown => 'An unknown error occurred';
 
   @override
-  String get timeoutErrorMessage => 'Request timed out';
+  String get error_timeout => 'Request timed out';
 
   @override
-  String get successMessage => 'Operation completed successfully';
+  String get toast_success_generic => 'Operation completed successfully';
 
   @override
-  String get personalInformation => 'Personal Information';
+  String get heading_personal_info => 'Personal Information';
 
   @override
-  String get email => 'Email';
+  String get label_email_simple => 'Email';
 
   @override
-  String get name => 'Name';
+  String get label_name => 'Name';
 
   @override
-  String get enterName => 'Enter your name';
+  String get hint_enter_name => 'Enter your name';
 
   @override
-  String get editProfile => 'Edit Profile';
+  String get heading_edit_profile => 'Edit Profile';
 
   @override
-  String get save => 'Save';
+  String get action_save => 'Save';
+
+  @override
+  String get toast_welcome_to_wanderly => 'Welcome to Wanderly!';
+
+  @override
+  String get heading_sign_up_subtitle => 'Join our community of travelers';
+
+  @override
+  String get heading_create_trip => 'Create Trip';
+
+  @override
+  String get hint_enter_description => 'Enter trip description';
+
+  @override
+  String get hint_enter_budget => 'Enter your budget';
+
+  @override
+  String get action_create => 'Create';
+
+  @override
+  String get action_sign_up => 'Sign Up';
+
+  @override
+  String get label_confirm_password_simple => 'Confirm Password';
+
+  @override
+  String get hint_confirm_password_simple => 'Confirm your password';
+
+  @override
+  String get error_invalid_name => 'Please enter a valid name';
+
+  @override
+  String get label_all => 'All';
+
+  @override
+  String get heading_welcome => 'Welcome';
+
+  @override
+  String get label_profile_updated => 'Profile updated successfully';
+
+  @override
+  String get label_no_changes => 'No changes to save';
+
+  @override
+  String get error_update_profile => 'Failed to update profile';
+
+  @override
+  String get nav_lists => 'My Lists';
+
+  @override
+  String get label_currency_converter => 'Converter';
+
+  @override
+  String get heading_trip_lists => 'Trip Lists';
+
+  @override
+  String get label_no_lists => 'No lists yet';
+
+  @override
+  String get label_add_note => 'Add Note';
+
+  @override
+  String get label_add_checklist => 'Add Checklist';
+
+  @override
+  String get hint_note_title => 'Title';
+
+  @override
+  String get hint_note_content => 'Write something...';
+
+  @override
+  String get hint_checklist_item => 'New item';
+
+  @override
+  String get label_notes => 'Notes';
+
+  @override
+  String get label_checklists => 'Checklists';
+
+  @override
+  String get action_delete_note => 'Delete Note';
+
+  @override
+  String get dialog_delete_note_confirm =>
+      'Are you sure you want to delete this note?';
+
+  @override
+  String label_hello(String name) {
+    return 'Hello, $name';
+  }
+
+  @override
+  String get heading_account_actions => 'Account Actions';
+
+  @override
+  String get heading_developer_tools => 'Developer Tools';
+
+  @override
+  String get label_wanderly_console => 'Wanderly Console';
+
+  @override
+  String get label_wanderly_console_desc =>
+      'Inspect system logs and diagnostics';
+
+  @override
+  String get toast_account_deleted => 'Account deleted successfully';
+
+  @override
+  String error_failed_delete_account_full(String error) {
+    return 'Failed to delete account: $error';
+  }
+
+  @override
+  String get label_manage_data => 'Manage device permissions';
+
+  @override
+  String get label_verified => 'Verified';
 }

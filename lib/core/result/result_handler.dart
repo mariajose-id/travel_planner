@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:travel_planner/core/logging/app_logger.dart';
 import 'package:travel_planner/core/result/result.dart';
+import 'package:travel_planner/core/error/error_mapper.dart';
 
 class ResultHandler {
   ResultHandler._();
@@ -15,29 +16,14 @@ class ResultHandler {
       if (error is ValidationError) {
         backgroundColor = Colors.orange;
         textColor = Colors.black;
-      } else if (error is AuthenticationError) {
-        backgroundColor = Colors.red;
-        textColor = Colors.white;
-      } else if (error is NotFoundError) {
-        backgroundColor = Colors.orange;
-        textColor = Colors.black;
-      } else if (error is DataError) {
-        backgroundColor = Colors.red;
-        textColor = Colors.white;
-      } else if (error is NetworkError) {
-        backgroundColor = Colors.red;
-        textColor = Colors.white;
-      } else if (error is ServerError) {
-        backgroundColor = Colors.red;
-        textColor = Colors.white;
       }
 
-      AppLogger.getLogger(
-        'ResultHandler',
-      ).severe('Failure: ${error.message} (${error.code})');
+      final localizedMessage = error.toLocalizedMessage(context);
+
+      AppLogger.error('Result Failure: [${error.code}] ${error.message}');
 
       Fluttertoast.showToast(
-        msg: error.message,
+        msg: localizedMessage,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: backgroundColor,
@@ -47,7 +33,7 @@ class ResultHandler {
   }
 
   static void handleError(BuildContext context, String error) {
-    AppLogger.getLogger('ResultHandler').severe('Error: $error');
+    AppLogger.ui('Error: $error');
     Fluttertoast.showToast(
       msg: error,
       toastLength: Toast.LENGTH_SHORT,
@@ -58,7 +44,7 @@ class ResultHandler {
   }
 
   static void showSuccessToast(BuildContext context, String message) {
-    AppLogger.getLogger('ResultHandler').info('Success: $message');
+    AppLogger.ui('Success: $message');
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
@@ -69,7 +55,7 @@ class ResultHandler {
   }
 
   static void showErrorToast(BuildContext context, String message) {
-    AppLogger.getLogger('ResultHandler').severe('Error Toast: $message');
+    AppLogger.ui('Error Toast: $message');
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
@@ -80,7 +66,7 @@ class ResultHandler {
   }
 
   static void showWarningToast(BuildContext context, String message) {
-    AppLogger.getLogger('ResultHandler').warning('Warning: $message');
+    AppLogger.ui('Warning: $message');
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
@@ -91,7 +77,7 @@ class ResultHandler {
   }
 
   static void showInfoToast(BuildContext context, String message) {
-    AppLogger.getLogger('ResultHandler').info('Info: $message');
+    AppLogger.ui('Info: $message');
     Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:travel_planner/core/extensions/context_extensions.dart';
 
+/// Reusable text field widget with consistent styling.
+/// Supports single-line and multiline inputs with proper icon alignment.
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String label;
@@ -14,6 +17,8 @@ class AppTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final bool enabled;
   final int? maxLines;
+  final bool? readOnly;
+  final String? errorText;
   final VoidCallback? onTap;
 
   const AppTextField({
@@ -31,19 +36,21 @@ class AppTextField extends StatelessWidget {
     this.enabled = true,
     this.maxLines = 1,
     this.onTap,
+    this.readOnly,
+    this.errorText,
   });
+
+  bool get _isMultiline => maxLines != null && maxLines! > 1;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: theme.textTheme.labelLarge?.copyWith(
-            color: theme.colorScheme.onSurface,
+          style: context.textTheme.labelLarge?.copyWith(
+            color: context.colorScheme.onSurface,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -58,61 +65,87 @@ class AppTextField extends StatelessWidget {
           enabled: enabled,
           maxLines: maxLines,
           onTap: onTap,
-          readOnly: onTap != null,
-          style: theme.textTheme.bodyLarge,
+          readOnly: readOnly ?? (onTap != null),
+          style: context.textTheme.bodyLarge,
           decoration: InputDecoration(
+            errorText: errorText,
             hintText: hint,
-            hintStyle: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+            hintStyle: context.textTheme.bodyMedium?.copyWith(
+              color: context.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
-            prefixIcon: Icon(
-              prefixIcon,
-              color: theme.colorScheme.primary,
-              size: 20,
+            // Align icon to top for multiline, center for single line
+            prefixIcon: Padding(
+              padding: EdgeInsets.only(
+                left: 12,
+                right: 8,
+                top: _isMultiline ? 16 : 0,
+              ),
+              child: Align(
+                alignment: _isMultiline
+                    ? Alignment.topCenter
+                    : Alignment.center,
+                widthFactor: 1,
+                heightFactor: _isMultiline ? null : 1,
+                child: Icon(
+                  prefixIcon,
+                  color: context.colorScheme.primary,
+                  size: 20,
+                ),
+              ),
+            ),
+            prefixIconConstraints: BoxConstraints(
+              minWidth: 44,
+              minHeight: _isMultiline ? 48 : 0,
             ),
             suffixIcon: suffixIcon,
             filled: true,
             fillColor: enabled
-                ? theme.colorScheme.surface
-                : theme.colorScheme.surfaceContainerHighest.withValues(
+                ? context.colorScheme.surface
+                : context.colorScheme.surfaceContainerHighest.withValues(
                     alpha: 0.3,
                   ),
-            contentPadding: const EdgeInsets.symmetric(
+            contentPadding: EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: _isMultiline ? 16 : 16,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                color: context.colorScheme.outline.withValues(alpha: 0.2),
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                color: context.colorScheme.outline.withValues(alpha: 0.2),
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: theme.colorScheme.primary,
+                color: context.colorScheme.primary,
                 width: 2,
               ),
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(
-                color: theme.colorScheme.outline.withValues(alpha: 0.12),
+                color: context.colorScheme.outline.withValues(alpha: 0.12),
               ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: theme.colorScheme.error, width: 2),
+              borderSide: BorderSide(
+                color: context.colorScheme.error,
+                width: 2,
+              ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: theme.colorScheme.error, width: 2),
+              borderSide: BorderSide(
+                color: context.colorScheme.error,
+                width: 2,
+              ),
             ),
           ),
         ),
