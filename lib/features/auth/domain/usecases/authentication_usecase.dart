@@ -8,6 +8,9 @@ import 'package:travel_planner/features/auth/domain/events/auth_events.dart';
 
 // 💎 `AuthenticationUseCase` ini sangat SOLID. Pemisahan logic antara registrasi, 
 // login, dan logout di level domain adalah best practice Clean Architecture! 🛡️🏗️
+class AuthenticationUseCase {
+  final AuthRepository _repository;
+  final List<void Function(AuthEvent)> _eventHandlers = [];
   AuthenticationUseCase(this._repository);
 
   void addEventHandler(void Function(AuthEvent) handler) {
